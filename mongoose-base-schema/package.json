@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-base-schema",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Sets up base schema for mongooose use",
   "main": "lib/mongoose-base-schema.js",
   "directories": {

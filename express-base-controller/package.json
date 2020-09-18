@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-base-controller",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Express base controller that can be inherited",
   "main": "lib/base-controller-service.js",
   "scripts": {

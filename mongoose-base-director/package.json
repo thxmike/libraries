@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-base-director",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Base class for setting up a mongoose director",
   "main": "./lib/mongoose-base-director.js",
   "scripts": {

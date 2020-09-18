@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/console-debug",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A way to send or not to send messages to the console",
   "main": "./lib/console_debug_service.js",
   "directories": {
@@ -19,6 +19,6 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/type-conversion": "1.0.0"
+    "@thxmike/type-conversion": "0.0.1"
   }
 }

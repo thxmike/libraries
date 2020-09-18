@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/string-operations",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Handles a series of string operations that are often repetative",
     "main": "./lib/string_operations_service.js",
     "directories": {
@@ -19,7 +19,7 @@
         "url": "https://github.com/thxmike/libraries.git"
     },
     "dependencies": {
-        "@thxmike/type-conversion": "1.0.0",
+        "@thxmike/type-conversion": "0.0.1",
         "uuid": "^8.3.0"
     }
 }

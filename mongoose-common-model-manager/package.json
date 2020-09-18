@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-common-model-manager",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A mongoose common manager for basic entity operations. That is part of the mongoose schema",
   "main": "lib/common-model-manager.js",
   "directories": {

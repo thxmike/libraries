@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/templating",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "This provides templating services which abstracts ejs",
     "main": "./lib/template_service.js",
     "scripts": {
@@ -17,6 +17,6 @@
     },
     "dependencies": {
         "ejs": "^3.1.5",
-        "@thxmike/file-system": "1.0.0"
+        "@thxmike/file-system": "0.0.1"
     }
 }

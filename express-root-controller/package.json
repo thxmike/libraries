@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-root-controller",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "\"Root Controller to be use in API, provides health and list endpoints\"",
   "main": "./lib/root-controller-service.js",
   "directories": {

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/type-conversion",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This convert basic data types to other types",
   "main": "./lib/ulti-type-conversion-service.js",
   "scripts": {

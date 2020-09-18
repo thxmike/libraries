@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/http-server",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "nodejs http(s) server",
   "main": "./lib/http_server.js",
   "scripts": {

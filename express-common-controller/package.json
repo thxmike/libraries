@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-common-controller",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This is a common controller that can be used as a starting point for express.",
   "main": "lib/common-controller-service.js",
   "directories": {
@@ -16,7 +16,7 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/express-base-controller": "1.0.0",
-    "@thxmike/type-conversion": "1.0.0"
+    "@thxmike/express-base-controller": "0.0.1",
+    "@thxmike/type-conversion": "0.0.1"
   }
 }

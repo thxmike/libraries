@@ -160,7 +160,7 @@ class VaultClientService {
     });
   }
 
-  safe_list(path) {
+  vault_list(path) {
 
     let uri_path = `${this.base_uri}${path}/?list=true`;
 

@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/rest-client",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "\"An abstraction for RESTful operations\"",
     "main": "./lib/rest_client_service.js",
     "directories": {
@@ -16,8 +16,8 @@
     },
     "dependencies": {
         "request": "^2.88.2",
-        "@thxmike/error-response": "1.0.0",
-        "@thxmike/string-operations": "1.0.0",
+        "@thxmike/error-response": "0.0.1",
+        "@thxmike/string-operations": "0.0.1",
         "uuid": "^8.3.0"
     },
     "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/ssl-labs-client",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "\"Client for SSL Labs API\" ",
   "main": "./lib/ssl_labs_client_service.js",
   "directories": {
@@ -19,7 +19,7 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/rest-client": "1.0.0",
-    "@thxmike/timer": "1.0.0"
+    "@thxmike/rest-client": "0.0.1",
+    "@thxmike/timer": "0.0.1"
   }
 }

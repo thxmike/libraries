@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/timer",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Give the ability to set timed delays in your code",
     "main": "./lib/timer_service.js",
     "directories": {

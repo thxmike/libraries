@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-app-controller",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "\"Default Express App Route Settings\"",
   "main": "./lib/app-controller-service.js",
   "directories": {

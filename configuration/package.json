@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/configuration",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Configuration Service used to extend and merge NodeJS Configurations",
     "main": "./lib/configuration_service.js",
     "directories": {
@@ -19,7 +19,7 @@
         "url": "https://github.com/thxmike/libraries.git"
       },
     "dependencies": {
-        "@thxmike/file-system": "1.0.0",
-        "@thxmike/vault-client": "1.0.0"
+        "@thxmike/file-system": "0.0.1",
+        "@thxmike/vault-client": "0.0.1"
     }
 }

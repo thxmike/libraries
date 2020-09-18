@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/ldap-query",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Client for querying ldap",
   "main": "lib/ldap-query-service.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ldapjs": "^2.1.1",
-    "@thxmike/string-operations": "1.0.0"
+    "@thxmike/string-operations": "0.0.1"
   },
   "repository": {
     "type": "git",

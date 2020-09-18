@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/command",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "This invoked the local systems command service",
     "main": "./lib/command_service.js",
     "directories": {

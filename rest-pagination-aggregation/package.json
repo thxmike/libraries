@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/rest-pagination-aggregation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This provides pagination aggregation of all pages based on client request",
   "main": "./lib/rest-pagination-aggregation.js",
   "module": "./lib/rest-pagination-aggregation.js",
@@ -22,6 +22,6 @@
   "dependencies": {
     "esm": "^3.2.25",
     "parse-link-header": "^1.0.1",
-    "@thxmike/rest-client": "1.0.0"
+    "@thxmike/rest-client": "0.0.1"
   }
 }

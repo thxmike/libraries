@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/identity-token-client",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "This is a identity token service that works with ultimate software identity system",
     "main": "./lib/identity_token_service.js",
     "scripts": {
@@ -16,7 +16,7 @@
     "author": "Michael Rivera",
     "license": "ISC",
     "dependencies": {
-        "@thxmike/rest-client": "1.0.0",
-        "@thxmike/string-operations": "1.0.0"
+        "@thxmike/rest-client": "0.0.1",
+        "@thxmike/string-operations": "0.0.1"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@thxmike/file-system",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Abstraction for the file system node module",
     "main": "./lib/file_system_service.js",
     "directories": {

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-setup",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Sets up Mongoose eventing system",
   "main": "lib/mongoose-setup-service.js",
   "directories": {
@@ -22,7 +22,7 @@
     "bson": "^4.1.0",
     "mongoose": "^5.10.2",
     "mongoose-extend-schema": "git+https://github.com/thxmike/mongoose-extend-schema.git",
-    "normalizeurl": "1.0.0",
+    "normalizeurl": "0.0.1",
     "uuid-mongodb": "2.3.0",
     "uuid-parse": "^1.1.0"
   }

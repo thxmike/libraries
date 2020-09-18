@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/json-message",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Creates JSON messages and has provides predefined messages",
   "main": "lib/json-message-service.js",
   "scripts": {

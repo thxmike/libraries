@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/rest-ntlm-client",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "NTLM REST Client",
   "main": "lib/rest-ntml-service.js",
   "scripts": {

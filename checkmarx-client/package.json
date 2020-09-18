@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/checkmarx-client",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A simple restful client that leverages the checkmarx api",
   "main": "lib/checkmarx-service.js",
   "directories": {
@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.7.2",
-    "@thxmike/rest-client": "1.0.0",
+    "@thxmike/rest-client": "0.0.1",
     "xml2js": "^0.4.23"
   }
 }

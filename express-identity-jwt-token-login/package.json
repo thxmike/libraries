@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-identity-jwt-token-login",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Identity JWT Authentication Service for Express Middleware",
   "main": "lib/express-identity-jwt-token-login-service",
   "directories": {
@@ -17,6 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "@thxmike/rest-client": "1.0.0"
+    "@thxmike/rest-client": "0.0.1"
   }
 }

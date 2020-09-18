@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/array-pagination",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Provides pagination to Arrays",
   "main": "lib/array-pagination-service.js",
   "directories": {

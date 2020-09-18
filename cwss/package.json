@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/cwss",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "cwss scoring service",
   "main": "lib/cwss-service.js",
   "directories": {

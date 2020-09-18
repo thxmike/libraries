@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/cvss",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This provides cvss services",
   "main": "lib/cvss-service.js",
   "scripts": {
