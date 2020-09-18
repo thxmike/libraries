@@ -1,0 +1,25 @@
+{
+  "name": "commit",
+  "version": "0.3.5",
+  "description": "\"commits and publishes each module\"",
+  "main": "commit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "parse-link-header": "^1.0.1",
+    "file-system": "1.0.9"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "gruntify-eslint": "^5.0.0",
+    "jshint": "^2.11.0"
+  }
+}

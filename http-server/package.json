@@ -1,0 +1,23 @@
+{
+  "name": "@thxmike/http-server",
+  "version": "1.0.0",
+  "description": "nodejs http(s) server",
+  "main": "./lib/http_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "ws": "^7.3.1"
+  }
+}

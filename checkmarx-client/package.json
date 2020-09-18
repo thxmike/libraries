@@ -1,0 +1,26 @@
+{
+  "name": "@thxmike/checkmarx-client",
+  "version": "1.0.0",
+  "description": "A simple restful client that leverages the checkmarx api",
+  "main": "lib/checkmarx-service.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "@thxmike/rest-client": "1.0.0",
+    "xml2js": "^0.4.23"
+  }
+}

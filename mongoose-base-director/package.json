@@ -1,0 +1,15 @@
+{
+  "name": "@thxmike/mongoose-base-director",
+  "version": "1.0.0",
+  "description": "A Base class for setting up a mongoose director",
+  "main": "./lib/mongoose-base-director.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC"
+}

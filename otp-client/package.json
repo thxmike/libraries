@@ -1,0 +1,21 @@
+{
+  "name": "@thxmike/otp-client",
+  "version": "1.0.0",
+  "description": "This is a client for the one time password system",
+  "main": "./lib/one_time_service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "dependencies": {
+    "@thxmike/rest-client": "1.0.0"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC"
+}

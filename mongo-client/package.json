@@ -1,0 +1,19 @@
+{
+  "name": "@thxmike/mongo-client",
+  "version": "1.0.0",
+  "description": "Provides a basic mongo client",
+  "main": "lib/mongo-client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "mongodb": "^3.6.0"
+  }
+}

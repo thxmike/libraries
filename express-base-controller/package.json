@@ -1,0 +1,21 @@
+{
+  "name": "@thxmike/express-base-controller",
+  "version": "1.0.0",
+  "description": "Express base controller that can be inherited",
+  "main": "lib/base-controller-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "pluralize": "^8.0.0"
+  }
+}

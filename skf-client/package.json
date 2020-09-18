@@ -1,0 +1,21 @@
+{
+  "name": "@thxmike/skf-client",
+  "version": "1.0.0",
+  "description": "Client into the SKF restful API",
+  "main": "lib/skf_service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "@thxmike/rest-client": "1.0.0"
+  }
+}

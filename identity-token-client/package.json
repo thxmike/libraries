@@ -1,0 +1,22 @@
+{
+    "name": "@thxmike/identity-token-client",
+    "version": "1.0.0",
+    "description": "This is a identity token service that works with ultimate software identity system",
+    "main": "./lib/identity_token_service.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "dependencies": {
+        "@thxmike/rest-client": "1.0.0",
+        "@thxmike/string-operations": "1.0.0"
+    }
+}

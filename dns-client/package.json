@@ -1,0 +1,22 @@
+{
+    "name": "@thxmike/dns-client",
+    "version": "1.0.0",
+    "description": "To provide dns client services using the Tonic DNS API",
+    "main": "./lib/dns_client_service.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "dependencies": {
+        "bluebird": "^3.7.2",
+        "@thxmike/rest-client": "1.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    }
+}

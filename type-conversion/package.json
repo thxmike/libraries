@@ -1,0 +1,24 @@
+{
+  "name": "@thxmike/type-conversion",
+  "version": "1.0.0",
+  "description": "This convert basic data types to other types",
+  "main": "./lib/ulti-type-conversion-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "bson": "^4.1.0",
+    "mongoose": "^5.10.2",
+    "uuid": "^8.3.0",
+    "uuid-parse": "^1.1.0"
+  }
+}

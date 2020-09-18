@@ -1,0 +1,22 @@
+{
+    "name": "@thxmike/templating",
+    "version": "1.0.0",
+    "description": "This provides templating services which abstracts ejs",
+    "main": "./lib/template_service.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    },
+    "dependencies": {
+        "ejs": "^3.1.5",
+        "@thxmike/file-system": "1.0.0"
+    }
+}

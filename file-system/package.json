@@ -1,0 +1,24 @@
+{
+    "name": "@thxmike/file-system",
+    "version": "1.0.0",
+    "description": "Abstraction for the file system node module",
+    "main": "./lib/file_system_service.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "dependencies": {
+        "bluebird": "^3.7.2"
+    }
+}

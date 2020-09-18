@@ -1,0 +1,24 @@
+{
+  "name": "@thxmike/console-debug",
+  "version": "1.0.0",
+  "description": "A way to send or not to send messages to the console",
+  "main": "./lib/console_debug_service.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "@thxmike/type-conversion": "1.0.0"
+  }
+}

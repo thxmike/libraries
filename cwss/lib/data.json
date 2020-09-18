@@ -1,0 +1,797 @@
+[{
+    "base_finding": {
+      "description": "Captures the inherent risk of the weakness, confidence in the accuracy of the finding, and strength of controls",
+      "technical_impact": {
+        "code": "TI",
+        "dsecription": "The potential result that can be produced by the weakness, assuming that the weakness can be successfully reached and exploited.",
+        "values": {
+          "critical": {
+            "code": "C",
+            "weight": "1.0",
+            "description": "Complete control over the software being analyzed, to the point where operations cannot take place."
+          },
+          "high": {
+            "code": "H",
+            "weight": "0.9",
+            "description": "Significant control over the software being analyzed, or access to critical information can be obtained."
+          },
+          "medium": {
+            "code": "M",
+            "weight": "0.6",
+            "description": "Moderate control over the software being analyzed, or access to moderately important information can be obtained."
+          },
+          "low": {
+            "code": "L",
+            "weight": "0.3",
+            "description": "Minimal control over the software being analyzed, or only access to relatively unimportant information can be obtained."
+          },
+          "none": {
+            "code": "N",
+            "weight": "0.0",
+            "description": "There is no technical impact to the software being analyzed at all. In other words, this does not lead to a vulnerability."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "The Default weight is the median of the weights for Critical, High, Medium, Low, and None."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements; the user might want to investigate every weakness finding of interest, regardless of confidence."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "acquired_privilege": {
+        "code": "AP",
+        "dsecription": "The type of privileges that are obtained by an attacker who can successfully exploit the weakness.",
+        "values": {
+          "administrator": {
+            "code": "A",
+            "weight": "1.0",
+            "description": "The attacker gains access to an entity with administrator, root, SYSTEM, or equivalent privileges that imply full control over the software under analysis; or, the attacker can raise their own (lower) privileges to an administrator."
+          },
+          "partially-privileged_user": {
+            "code": "P",
+            "weight": "0.9",
+            "description": "The attacker gains access to an entity with some special privileges, but not enough privileges that are equivalent to an administrator; or, the attacker can raise their own (lower) privileges to a partially-privileged user. For example, a user might have privileges to make backups, but not to modify the software's configuration or install updates."
+          },
+          "regular_user": {
+            "code": "RU",
+            "weight": "0.7",
+            "description": "The attacker gains access to an entity that is a regular user who has no special privileges; or, the attacker can raise their own (lower) privileges to that of a regular user."
+          },
+          "limited-guest": {
+            "code": "L",
+            "weight": "0.6",
+            "description": "The attacker gains access to an entity with limited or \"guest\" privileges that can significantly restrict allowable activities; or, the attacker can raise their own (lower) privileges to a guest. Note: this value does not refer to the \"guest operating system\" concept in virtualized hosts."
+          },
+          "none": {
+            "code": "N",
+            "weight": "0.1",
+            "description": "The attacker cannot gain access to any extra privileges beyond those that are already available to the attacker. (Note that this value can be useful in limited circumstances in which the attacker can escape a sandbox or other restrictive environment but still cannot gain extra privileges, or obtain access as other users."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.7",
+            "description": "Median of the weights for None, Guest, Regular User, Partially-Privileged User, and Administrator."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements that wants strict enforcement of privilege separation, even between already-privileged users."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "acquired_privilege_layer": {
+        "code": "AL",
+        "dsecription": "The operational layer to which the attacker gains privileges by successfully exploiting the weakness.",
+        "values": {
+          "application": {
+            "code": "A",
+            "weight": 1.0,
+            "description": "The attacker acquires privileges that are supported within the software under analysis itself. (If the software under analysis is an essential part of the underlying system, such as an operating system kernel, then the System value may be more appropriate.)"
+          },
+          "system": {
+            "code": "S",
+            "weight": "0.9",
+            "description": "The attacker acquires privileges to the underlying system or physical host that is being used to run the software under analysis."
+          },
+          "network": {
+            "code": "N",
+            "weight": "0.7",
+            "description": "The attacker acquires privileges to access the network."
+          },
+          "enterprise_infrastructure": {
+            "code": "E",
+            "weight": "1.0",
+            "description": "The attacker acquires privileges to a critical piece of enterprise infrastructure, such as a router, switch, DNS, domain controller, firewall, identity server, etc."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.9",
+            "description": "Median of the weights for Application, System, Network, and Enterprise Infrastructure."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements that wants strict enforcement of privilege separation, even between already-privileged users."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Note that Quantified values are supported for completeness; however, since privilege layers are discrete entities, there might be limited circumstances in which a quantified model would be useful."
+          }
+        }
+      },
+      "internal_control_effectiveness": {
+        "code": "IC",
+        "dsecription": "The ability of the control to render the weakness unable to be exploited by an attacker.",
+        "values": {
+          "none": {
+            "code": "N",
+            "weight": 1.0,
+            "description": "No controls exist."
+          },
+          "limited": {
+            "code": "L",
+            "weight": "0.9",
+            "description": "There are simplistic methods or accidental restrictions that might prevent a casual attacker from exploiting the issue."
+          },
+          "moderate": {
+            "code": "M",
+            "weight": "0.7",
+            "description": "The protection mechanism is commonly used but has known limitations that might be bypassed with some effort by a knowledgeable attacker. For example, the use of HTML entity encoding to prevent XSS attacks may be bypassed when the output is placed into another context such as a Cascading Style Sheet or HTML tag attribute."
+          },
+          "indirect(defense-in-depth)": {
+            "code": "I",
+            "weight": "0.5",
+            "description": "The control does not specifically protect against exploitation of the weakness, but it indirectly reduces the impact when a successful attack is launched, or otherwise makes it more difficult to construct a functional exploit. For example, a validation routine might indirectly limit the size of an input, which might make it difficult for an attacker to construct a payload for an XSS or SQL injection attack."
+          },
+          "best_available": {
+            "code": "B",
+            "weight": "0.3",
+            "description": "The control follows best current practices, although it may have some limitations that can be overcome by a skilled, determined attacker, possibly requiring the presence of other weaknesses. For example, the double-submit method for CSRF protection is considered one of the strongest available, but it can be defeated in conjunction with behaviors of certain functionality that can read raw HTTP headers."
+          },
+          "complete": {
+            "code": "C",
+            "weight": "0.0",
+            "description": "The control is completely effective against the weakness, i.e., there is no bug or vulnerability, and no adverse consequence of exploiting the issue. For example, a buffer copy operation that ensures that the destination buffer is always larger than the source (plus any indirect expansion of the original source size) will not cause an overflow."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "Median of the weights for Complete, Best-Available, Indirect, Moderate, Limited, and None."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "finding_confidence": {
+        "code": "FC",
+        "dsecription": "The confidence that the reported issue is a weakness that can be utilized by an attacker",
+        "values": {
+          "proven_true": {
+            "code": "T",
+            "weight": 1.0,
+            "description": "The weakness is reachable by the attacker."
+          },
+          "proven_locally_true": {
+            "code": "LT",
+            "weight": "0.8",
+            "description": "The weakness occurs within an individual function or component whose design relies on safe invocation of that function, but attacker reachability to that function is unknown or not present. For example, a utility function might construct a database query without encoding its inputs, but if it is only called with constant strings, the finding is locally true."
+          },
+          "proven_false": {
+            "code": "F",
+            "weight": "0.0",
+            "description": "The finding is erroneous (i.e. the finding is a false positive and there is no weakness), and/or there is no possible attacker role."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.8",
+            "description": "Median of the weights for Proven True, Proven Locally True, and Proven False."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements; the user might want to investigate every weakness finding of interest, regardless of confidence."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Some code analysis tools have precise measurements of the accuracy of specific detection patterns."
+          }
+        }
+      }
+    }
+  },
+  {
+    "attack_surface": {
+      "description": "The barriers that an attacker must overcome in order to exploit the weakness",
+      "required_privilege": {
+        "code": "RP",
+        "dsecription": "The type of privileges that an attacker must already have in order to reach the code/functionality that contains the weakness.",
+        "values": {
+          "none": {
+            "code": "N",
+            "weight": 1.0,
+            "description": "No privileges are required. For example, a web-based search engine may not require any privileges for an entity to enter a search term and view results."
+          },
+          "limited_guest": {
+            "code": "L",
+            "weight": "0.9",
+            "description": "The entity has limited or \"guest\" privileges that can significantly restrict allowed activities; the entity might be able to register or create a new account without any special requirements or proof of identity. For example, a web blog might allow participants to create a user name and submit a valid email address before entering comments. Note: this value does not refer to the \"guest operating system\" concept in virtualized hosts."
+          },
+          "regular_user": {
+            "code": "RU",
+            "weight": "0.7",
+            "description": "The entity is a regular user who has no special privileges."
+          },
+          "partially_privileged_user": {
+            "code": "P",
+            "weight": "0.6",
+            "description": "The entity is a valid user with some special privileges, but not enough privileges that are equivalent to an administrator. For example, a user might have privileges to make backups, but not to modify the software's configuration or install updates."
+          },
+          "administrator": {
+            "code": "A",
+            "weight": "0.1",
+            "description": "The entity has administrator, root, SYSTEM, or equivalent privileges that imply full control over the software or the underlying OS."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.7",
+            "description": "Median of the weights for None, Limited, Regular User, Partially-Privileged User, and Administrator."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements that wants strict enforcement of privilege separation, even between already-privileged users."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Note that Quantified values are supported for completeness; however, since privileges and users are discrete entities, there might be limited circumstances in which a quantified model would be useful."
+          }
+        }
+      },
+      "required_privilege_layer": {
+        "code": "RP",
+        "dsecription": "The operational layer to which the attacker must have privileges in order to attempt to attack the weakness.",
+        "values": {
+          "application": {
+            "code": "A",
+            "weight": 1.0,
+            "description": "The attacker must have privileges that are supported within the software under analysis itself. (If the software under analysis is an essential part of the underlying system, such as an operating system kernel, then the System value may be more appropriate.)"
+          },
+          "system": {
+            "code": "S",
+            "weight": "0.9",
+            "description": "The attacker must have privileges to the underlying system or physical host that is being used to run the software under analysis."
+          },
+          "network": {
+            "code": "N",
+            "weight": "0.7",
+            "description": "The attacker must have privileges to access the network."
+          },
+          "enterprise_infrastructure": {
+            "code": "E",
+            "weight": "1.0",
+            "description": "The attacker must have privileges on a critical piece of enterprise infrastructure, such as a router, switch, DNS, domain controller, firewall, identity server, etc."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.9",
+            "description": "Median of the weights for Application, System, Network, and Enterprise Infrastructure."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in an environment with high assurance requirements that wants strict enforcement of privilege separation, even between already-privileged users."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Note that Quantified values are supported for completeness; however, since privilege layers are discrete entities, there might be limited circumstances in which a quantified model would be useful."
+          }
+        }
+      },
+      "access_vector": {
+        "code": "AV",
+        "dsecription": "The channel through which an attacker must communicate to reach the code or functionality that contains the weakness.",
+        "values": {
+          "internet": {
+            "code": "I",
+            "weight": 1.0,
+            "description": "An attacker must have access to the Internet to reach the weakness."
+          },
+          "intranet": {
+            "code": "R",
+            "weight": "0.8",
+            "description": "An attacker must have access to an enterprise intranet that is shielded from direct access from the Internet, e.g. by using a firewall, but otherwise the intranet is accessible to most members of the enterprise."
+          },
+          "private_network": {
+            "code": "V",
+            "weight": "0.8",
+            "description": "An attacker must have access to a private network that is only accessible to a narrowly-defined set of trusted parties."
+          },
+          "adjacent_network": {
+            "code": "A",
+            "weight": "0.7",
+            "description": "An attacker must have access to a physical interface to the network, such as the broadcast or collision domain of the vulnerable software. Examples of local networks include local IP subnet, Bluetooth, IEEE 802.11, and local Ethernet segment."
+          },
+          "local": {
+            "code": "L",
+            "weight": "0.5",
+            "description": "The attacker must have an interactive, local (shell) account that interfaces directly with the underlying operating system."
+          },
+          "physical": {
+            "code": "P",
+            "weight": "0.2",
+            "description": "The attacker must have physical access to the system that the software runs on, or otherwise able to interact with the system via interfaces such as USB, CD, keyboard, mouse, etc."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.75",
+            "description": "Median of weights for relevant values."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Note that Quantified values are supported for completeness; however, since access vectors are discrete entities, there might be limited circumstances in which a quantified model would be useful."
+          }
+        }
+      },
+      "authentication_strength": {
+        "code": "AS",
+        "dsecription": "The strength of the authentication routine that protects the code/functionality that contains the weakness.",
+        "values": {
+          "strong": {
+            "code": "A",
+            "weight": "0.7",
+            "description": "The weakness requires strongest-available methods to tie the entity to a real-world identity, such as hardware-based tokens, and/or multi-factor authentication."
+          },
+          "moderate": {
+            "code": "M",
+            "weight": "0.8",
+            "description": "The weakness requires authentication using moderately strong methods, such as the use of certificates from untrusted authorities, knowledge-based authentication, or one-time passwords."
+          },
+          "weak": {
+            "code": "W",
+            "weight": "0.9",
+            "description": "The weakness requires a simple, weak authentication method that is easily compromised using spoofing, dictionary, or replay attacks, such as a static password."
+          },
+          "none": {
+            "code": "N",
+            "weight": "1.0",
+            "description": "The weakness does not require any authentication at all."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.85",
+            "description": "Median of values for Strong, Moderate, Weak, and None.Median of weights for relevant values."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This might not be applicable in an environment with high assurance requirements that seek to eliminate all weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "level_of_interaction": {
+        "code": "IN",
+        "dsecription": "The actions that are required by the human victim(s) to enable a successful attack to take place.",
+        "values": {
+          "automated": {
+            "code": "A",
+            "weight": "1.0",
+            "description": "No human interaction is required."
+          },
+          "typical_limited": {
+            "code": "T",
+            "weight": "0.9",
+            "description": "The attacker must convince the user to perform an action that is common or regarded as \"normal\" within typical product operation. For example, clicking on a link in a web page, or previewing the body of an email, is common behavior."
+          },
+          "moderate": {
+            "code": "M",
+            "weight": "0.8",
+            "description": "The attacker must convince the user to perform an action that might appear suspicious to a cautious, knowledgeable user. For example: the user has to accept a warning that suggests the attacker's payload might contain dangerous content."
+          },
+          "opportunistic": {
+            "code": "O",
+            "weight": "0.3",
+            "description": "The attacker cannot directly control or influence the victim, and can only passively capitalize on mistakes or actions of others."
+          },
+          "high": {
+            "code": "H",
+            "weight": "0.1",
+            "description": "A large amount of social engineering is required, possibly including ignorance or negligence on the part of the victim."
+          },
+          "no_interaction": {
+            "code": "NI",
+            "weight": "0.0",
+            "description": "There is no interaction possible, not even opportunistically; this typically would render the weakness as a \"bug\" instead of leading to a vulnerability. Since CWSS is for security, the weight is 0."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.55",
+            "description": "Median of values for Automated, Limited, Moderate, Opportunistic, High, and No interaction."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This might not be applicable in an environment with high assurance requirements, or an environment that has high concerns about insider attacks between people with an established trust relationship."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "deployment_scope": {
+        "code": "SC",
+        "dsecription": "Whether the weakness is present in all deployable instances of the software, or if it is limited to a subset of platforms and/or configurations.",
+        "values": {
+          "all": {
+            "code": "A",
+            "weight": "1.0",
+            "description": "Present in all platforms or configurations."
+          },
+          "moderate": {
+            "code": "M",
+            "weight": "0.9",
+            "description": "Present in common platforms or configurations."
+          },
+          "rare": {
+            "code": "R",
+            "weight": "0.5",
+            "description": "Only present in rare platforms or configurations"
+          },
+          "potentially_reachable": {
+            "code": "P",
+            "weight": "0.1",
+            "description": "Potentially reachable**, but all code paths are currently safe, and/or the weakness is in dead code."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.7",
+            "description": "The median of weights for RAMP values"
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. The user may know what percentage of shipped (or supported) software contains this bug."
+          }
+        }
+      }
+    }
+  },
+  {
+    "environmental": {
+      "description": "Characteristics of the weakness that are specific to a particular environment or operational context.",
+      "business_impact": {
+        "code": "BI",
+        "dsecription": "The potential impact to the business or mission if the weakness can be successfully exploited.",
+        "values": {
+          "critical": {
+            "code": "C",
+            "weight": "1.0",
+            "description": "The business/mission could fail."
+          },
+          "high": {
+            "code": "H",
+            "weight": "0.9",
+            "description": "The operations of the business/mission would be significantly affected."
+          },
+          "medium": {
+            "code": "M",
+            "weight": "0.6",
+            "description": "The business/mission would be affected, but without extensive damage to regular operations."
+          },
+          "low": {
+            "code": "L",
+            "weight": "0.3",
+            "description": "No impact"
+          },
+          "none": {
+            "code": "N",
+            "weight": "0.0",
+            "description": "Minimal impact on the business/mission."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "The median of weights for Critical, High, Medium, Low, and None."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This factor might not be applicable in contexts in which the business impact is irrelevant, or if the impact is being assessed and considered in analytical processes that are outside of the CWSS score itself."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Some organizations might have specific measurements for the business value of the asset, for example, which could be integrated into this measurement."
+          }
+        }
+      },
+      "likelihood_of_discovery": {
+        "code": "DI",
+        "dsecription": "The likelihood that an attacker can discover the weakness",
+        "values": {
+          "high": {
+            "code": "H",
+            "weight": "1.0",
+            "description": "It is very likely that an attacker can discover the weakness quickly and with little effort using simple techniques, without access to source code or other artifacts that simplify weakness detection."
+          },
+          "medium": {
+            "code": "M",
+            "weight": "0.6",
+            "description": "An attacker might be able to discover the weakness, but would require certain skills to do so, possibly requiring source code access or reverse engineering knowledge. It may require some time investment to find the issue."
+          },
+          "low": {
+            "code": "L",
+            "weight": "0.2",
+            "description": "An attacker is unlikely to discover the weakness without highly specialized skills, access to source code (or its equivalent), and a large time investment."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "The median of the High, Medium, and Low values."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. This might not be applicable when the scorer assumes that all weaknesses will be discovered by an attacker."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "likelihood_of_exploit": {
+        "code": "EX",
+        "dsecription": "The likelihood that, if the weakness is discovered, an attacker with the required privileges/authentication/access would be able to successfully exploit it.",
+        "values": {
+          "high": {
+            "code": "H",
+            "weight": "1.0",
+            "description": "It is highly likely that an attacker would target this weakness successfully, with a reliable exploit that is easy to develop."
+          },
+          "medium": {
+            "code": "M",
+            "weight": "0.6",
+            "description": "An attacker would probably target this weakness successfully, but the chances of success might vary, or require multiple attempts to succeed."
+          },
+          "low": {
+            "code": "L",
+            "weight": "0.2",
+            "description": "An attacker probably would not target this weakness, or could have very limited chances of success."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "Median of the High, Medium, and Low values. The \"None\" value is ignored with the expectation that few weakness findings would be scored using the value, and including it in the median calculation would reduce the weight to a non-intuitive level."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. For example, the scorer might want to assume that attackers could exploit any weakness they can find, or be willing to invest significant resources to work around any possible barriers to exploit success."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "external_control_effectiveness": {
+        "code": "EC",
+        "dsecription": "The capability of controls or mitigations outside of the software that may render the weakness more difficult for an attacker to reach and/or trigger.",
+        "values": {
+          "none": {
+            "code": "N",
+            "weight": "1.0",
+            "description": "No controls exist."
+          },
+          "limited": {
+            "code": "L",
+            "weight": "0.9",
+            "description": "There are simplistic methods or accidental restrictions that might prevent a casual attacker from exploiting the issue."
+          },
+          "moderate": {
+            "code": "M",
+            "weight": "0.7",
+            "description": "The protection mechanism is commonly used but has known limitations that might be bypassed with some effort by a knowledgeable attacker."
+          },
+          "indirect(defense-in-depth)": {
+            "code": "I",
+            "weight": "0.5",
+            "description": "The control does not specifically protect against exploitation of the weakness, but it indirectly reduces the impact when a successful attack is launched, or otherwise makes it more difficult to construct a functional exploit. For example, Address Space Layout Randomization (ASLR) and similar technologies reduce, but do not eliminate, the chances of success in a buffer overflow attack. Since the response is typically to exit the process, the result is still a denial of service."
+          },
+          "best-available": {
+            "code": "B",
+            "weight": "0.3",
+            "description": "The control follows best current practices, although it may have some limitations that can be overcome by a skilled, determined attacker, possibly requiring the presence of other weaknesses. For example, Transport Layer Security (TLS) / SSL 3 are in operation throughout much of the Web, and stronger methods generally are not available due to compatibility issues."
+          },
+          "complete": {
+            "code": "C",
+            "weight": "0.1",
+            "description": "TThe control is completely effective against the weakness, i.e., there is no bug or vulnerability, and no adverse consequence of exploiting the issue. For example, a sandbox environment might restrict file access operations to a single working directory, which would protect against exploitation of path traversal. A non-zero weight is used to reflect the possibility that the external control could be accidentally removed in the future, e.g. if the software's environment changes."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.6",
+            "description": "The median of Complete, Best-Available, Indirect, Moderate, Limited, and None."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights."
+          }
+        }
+      },
+      "prevalence": {
+        "code": "P",
+        "dsecription": "How frequently this type of weakness appears in software.",
+        "values": {
+          "widespread": {
+            "code": "W",
+            "weight": "1.0",
+            "description": "The weakness is found in most or all software in the associated environment, and may occur multiple times within the same software package."
+          },
+          "high": {
+            "code": "H",
+            "weight": "0.9",
+            "description": "The weakness is encountered very often, but it is not widespread."
+          },
+          "common": {
+            "code": "C",
+            "weight": "0.8",
+            "description": "The weakness is encountered periodically."
+          },
+          "limited": {
+            "code": "L",
+            "weight": "0.7",
+            "description": "The weakness is encountered rarely, or never."
+          },
+          "default": {
+            "code": "D",
+            "weight": "0.85",
+            "description": "The median of Limited, Common, High, and Widespread.."
+          },
+          "unknown": {
+            "code": "UK",
+            "weight": "0.5",
+            "description": "There is not enough information to provide a value for this factor. Further analysis may be necessary. In the future, a different value might be chosen, which could affect the score."
+          },
+          "not_applicable": {
+            "code": "NA",
+            "weight": "1.0",
+            "description": "This factor is being intentionally ignored in the score calculation because it is not relevant to how the scorer prioritizes weaknesses. When performing targeted scoring against specific weakness findings in an application, Prevalence is normally expected to be irrelevant, since the individual application and the analytical techniques determine how frequently the weakness occurs, and many aggregated scoring methods will generate larger scores if there are more weaknesses."
+          },
+          "quantified": {
+            "code": "Q",
+            "weight": "",
+            "description": "This factor could be quantified with custom weights. Precise prevalence data may be available within limited use cases, provided the user is tracking weakness data at a low level of granularity. For example, a developer may be tracking weaknesses across a suite of products, or a code-auditing vendor could measure prevalence from the software analyzed across the entire customer base. In a previous version of CWSS, prevalence was calculated based on from raw voting data that was collected for the 2010 Top 25, which used discrete values (range 1 to 4) which were then adjusted to a 1-to-10 range."
+          }
+        }
+      }
+    }
+  }
+]

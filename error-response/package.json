@@ -1,0 +1,24 @@
+{
+    "name": "@thxmike/error-response",
+    "version": "1.0.0",
+    "description": "nodejs library to check if errors exists in a response object and parse the error out",
+    "main": "./lib/error_response_service",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    },
+    "dependencies": {
+        "@thxmike/string-operations": "1.0.0"
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@thxmike/cvss",
+  "version": "1.0.0",
+  "description": "This provides cvss services",
+  "main": "lib/cvss-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "cvss": "^1.0.5"
+  }
+}

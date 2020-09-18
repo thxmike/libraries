@@ -1,0 +1,24 @@
+{
+    "name": "@thxmike/metadefender-client",
+    "version": "1.0.0",
+    "description": "Client to interact with the metadefender restful api",
+    "main": "./lib/metadefender_service.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "dependencies": {
+        "@thxmike/rest-client": "1.0.0"
+    }
+}

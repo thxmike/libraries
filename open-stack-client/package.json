@@ -1,0 +1,24 @@
+{
+  "name": "@thxmike/open-stack-client",
+  "version": "1.0.0",
+  "description": "Library to interact with openstack",
+  "main": "./lib/open_stack_client_service.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "@thxmike/rest-client": "1.0.0"
+  }
+}

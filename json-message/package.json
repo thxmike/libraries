@@ -1,0 +1,18 @@
+{
+  "name": "@thxmike/json-message",
+  "version": "1.0.0",
+  "description": "Creates JSON messages and has provides predefined messages",
+  "main": "lib/json-message-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC"
+}

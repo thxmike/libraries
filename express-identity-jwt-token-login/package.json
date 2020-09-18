@@ -1,0 +1,22 @@
+{
+  "name": "@thxmike/express-identity-jwt-token-login",
+  "version": "1.0.0",
+  "description": "Identity JWT Authentication Service for Express Middleware",
+  "main": "lib/express-identity-jwt-token-login-service",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "@thxmike/rest-client": "1.0.0"
+  }
+}

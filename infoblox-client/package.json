@@ -1,0 +1,21 @@
+{
+  "name": "@thxmike/infoblox-client",
+  "version": "1.0.0",
+  "description": "Infoblox Client",
+  "main": "lib/infoblox-client-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "@thxmike/rest-client": "1.0.0"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@thxmike/express-common-controller",
+  "version": "1.0.0",
+  "description": "This is a common controller that can be used as a starting point for express.",
+  "main": "lib/common-controller-service.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "@thxmike/express-base-controller": "1.0.0",
+    "@thxmike/type-conversion": "1.0.0"
+  }
+}

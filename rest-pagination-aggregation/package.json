@@ -1,0 +1,27 @@
+{
+  "name": "@thxmike/rest-pagination-aggregation",
+  "version": "1.0.0",
+  "description": "This provides pagination aggregation of all pages based on client request",
+  "main": "./lib/rest-pagination-aggregation.js",
+  "module": "./lib/rest-pagination-aggregation.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Michael Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "parse-link-header": "^1.0.1",
+    "@thxmike/rest-client": "1.0.0"
+  }
+}

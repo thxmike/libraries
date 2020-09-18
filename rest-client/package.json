@@ -1,0 +1,27 @@
+{
+    "name": "@thxmike/rest-client",
+    "version": "1.0.0",
+    "description": "\"An abstraction for RESTful operations\"",
+    "main": "./lib/rest_client_service.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "dependencies": {
+        "request": "^2.88.2",
+        "@thxmike/error-response": "1.0.0",
+        "@thxmike/string-operations": "1.0.0",
+        "uuid": "^8.3.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+    }
+}
