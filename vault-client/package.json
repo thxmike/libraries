@@ -1,7 +1,7 @@
 {
-  "name": "@thxmike/safe-client",
+  "name": "@thxmike/vault-client",
   "version": "1.0.0",
-  "description": "\"Client to interact with ulti-safe\"",
+  "description": "\"Client to interact with vault\"",
   "main": "./lib/vault_service.js",
   "directories": {
     "lib": "lib"

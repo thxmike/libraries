@@ -1,0 +1,25 @@
+{
+    "name": "@thxmike/configuration",
+    "version": "1.0.0",
+    "description": "Configuration Service used to extend and merge NodeJS Configurations",
+    "main": "./lib/configuration_service.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michael Rivera",
+    "license": "ISC",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thxmike/libraries.git"
+      },
+    "dependencies": {
+        "@thxmike/file-system": "1.0.0",
+        "@thxmike/vault-client": "1.0.0"
+    }
+}
