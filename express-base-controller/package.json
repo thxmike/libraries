@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-base-controller",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Express base controller that can be inherited",
   "main": "lib/base-controller-service.js",
   "scripts": {
@@ -17,5 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/pluralize": "0.0.29"
   }
 }

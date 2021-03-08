@@ -1,7 +1,7 @@
-const RestClientService = require("rest-client");
-const StringOperationsClient = require("string-operations");
+import { RestClientService } from 'rest-client';
+import { StringOperationsClient } from 'string-operations';
 
-class Token_Service {
+export class Token_Service {
   constructor(uri) {
     this._rest_service = new RestClientService();
     this.uri = uri;
@@ -110,4 +110,3 @@ class Token_Service {
   }
 
 }
-module.exports = Token_Service;

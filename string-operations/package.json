@@ -1,12 +1,13 @@
 {
     "name": "@thxmike/string-operations",
-    "version": "0.0.1",
+    "version": "0.1.3",
     "description": "Handles a series of string operations that are often repetative",
-    "main": "./lib/string_operations_service.js",
+    "main": "./lib/string-operations-service.js",
     "directories": {
         "lib": "lib"
     },
     "scripts": {
+        "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Michael Rivera",
@@ -19,7 +20,10 @@
         "url": "https://github.com/thxmike/libraries.git"
     },
     "dependencies": {
-        "@thxmike/type-conversion": "0.0.1",
-        "uuid": "^8.3.0"
+        "@thxmike/type-conversion": "0.1.2",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@types/uuid": "^8.3.0"
     }
 }

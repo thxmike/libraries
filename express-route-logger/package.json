@@ -14,5 +14,8 @@
     "registry": "https://registry.npmjs.org"
   },
   "author": "Michael Rivera",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.14.31"
+  }
 }

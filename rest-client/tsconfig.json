@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module":"ES2020",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"]
+  },
+  "exclude": ["tests", "dist", "node_modules", "lib"]
+}

@@ -17,6 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "@thxmike/express-base-controller": "0.0.1",
-    "@thxmike/type-conversion": "0.0.1"
+    "@thxmike/type-conversion": "0.0.2"
   }
 }

@@ -1,9 +1,8 @@
-const StringOperations = require("string-operations");
-const util = require("util");
+import { StringService } from '@thxmike/string-operations';
 
-class ErrorResponseService {
+export class ErrorResponseService {
 
-  static is_in_error_state(err, response, body) {
+  public static is_in_error_state({ err, response, body }: { err: any; response: any; body: any; }) {
 
     let in_error_state = false;
 
@@ -14,7 +13,7 @@ class ErrorResponseService {
       in_error_state = true;
 
     } else if (body) {
-      if (!StringOperations.is_json(body)) {
+      if (!StringService.is_json(body)) {
         if (body.toString().indexOf("AccessDeniedException") !== -1 ||
                   body.toString().indexOf("There was an error processing your request") !== -1 ||
                   body.toString().indexOf("An error occurred while processing your request.") !== -1) {
@@ -25,9 +24,9 @@ class ErrorResponseService {
     return in_error_state;
   }
 
-  static extract_error_messages(err, response, body) {
+  public static extract_error_messages(err: any, response: any, body: any) {
 
-    let error_message = {};
+    let error_message: {code: number, messages: any[] } = { code: 0, messages: [] };
 
     error_message.code = 503;
     error_message.messages = [];
@@ -48,17 +47,17 @@ class ErrorResponseService {
     return error_message;
   }
 
-  static check_body(body) {
+  public static check_body(body: any): any[] {
 
-    let error_messages = null;
+    let error_messages: any[] = [];
 
     if (body) {
 
       error_messages = [];
       if (typeof body === "string") {
-        let tmp = {};
+        let tmp = { message : "" };
 
-        if (StringOperations.is_json(body)) {
+        if (StringService.is_json(body)) {
           tmp = JSON.parse(body);
         } else {
           tmp.message = body;
@@ -76,13 +75,13 @@ class ErrorResponseService {
         error_messages.push(`${body.messageCode} - ${body.messageDetails}`.trim());
       }
       if (body && body.messages) {
-        body.messages.forEach((message) => {
+        body.messages.forEach((message: any) => {
           error_messages.push(`${message.message}`.trim());
         });
       }
       if (body && body.errors) {
         if (Array.isArray(body.errors)) {
-          body.errors.forEach((message) => {
+          body.errors.forEach((message: any) => {
             error_messages.push(`${message.message ? message.message : message.errorMessage ? message.errorMessage : message}`.trim());
           });
         } else {
@@ -91,7 +90,7 @@ class ErrorResponseService {
       }
       if (body && body.errorMessages) {
         if (Array.isArray(body.errorMessages)) {
-          body.errorMessages.forEach((message) => {
+          body.errorMessages.forEach((message: any) => {
             error_messages.push(`${message.message ? message.message : message.errorMessage ? message.errorMessage : message}`.trim());
           });
         } else {
@@ -101,7 +100,7 @@ class ErrorResponseService {
       if (body && body.modelState) {
         for (let property in body.modelState) {
           if (body.modelState.hasOwnProperty(property)) {
-            body.modelState[property].forEach((msg) => {
+            body.modelState[property].forEach((msg: any) => {
               error_messages.push(`${msg.code} - ${msg.message}`.trim());
             });
           }
@@ -115,9 +114,9 @@ class ErrorResponseService {
     return error_messages;
   }
 
-  static check_response(response) {
+  public static check_response(response: any): any[] {
 
-    let error_messages = null;
+    let error_messages = [];
 
     if (response) {
       error_messages = [];
@@ -132,8 +131,8 @@ class ErrorResponseService {
     return error_messages;
   }
 
-  static check_err(err) {
-    let error_message = null;
+  public static check_err(err: any): any[] {
+    let error_message = [];
 
     if (err) {
       error_message = [];
@@ -143,4 +142,3 @@ class ErrorResponseService {
     return error_message;
   }
 }
-module.exports = ErrorResponseService;

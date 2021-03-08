@@ -2,12 +2,13 @@
     "name": "@thxmike/rest-client",
     "version": "0.0.1",
     "description": "\"An abstraction for RESTful operations\"",
-    "main": "./lib/rest_client_service.js",
+    "main": "./lib/rest-client-service.js",
     "directories": {
         "lib": "lib"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc ."
     },
     "author": "Michael Rivera",
     "license": "ISC",
@@ -18,7 +19,7 @@
         "request": "^2.88.2",
         "@thxmike/error-response": "0.0.1",
         "@thxmike/string-operations": "0.0.1",
-        "uuid": "^8.3.0"
+        "uuid": "^8.3.2"
     },
     "repository": {
         "type": "git",

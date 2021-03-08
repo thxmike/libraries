@@ -1,11 +1,11 @@
-const bson = require("bson");
-const mongoose = require("mongoose");
-const uuidParse = require("uuid-parse");
-const util = require("util");
+import BSON from 'bson';
+import * as Mongoose from 'mongoose';
+import * as util from 'util';
+import * as uuidParse from 'uuid-parse';
 
-class TypeConversionService {
+export class TypeConversionService {
 
-  static convert_objectid_to_uuid(object_id, pad_left = false) {
+  public static convert_objectid_to_uuid(object_id: string, pad_left: boolean = false) {
     let id = "";
     //example: aa50d124-713e-11ea-bc55-0242ac130003
 
@@ -26,37 +26,43 @@ class TypeConversionService {
     return id;
   }
 
-  static convert_string_to_uuid(uuid_string) {
+  public static convert_string_to_uuid(uuid_string: string) {
 
     //let uuid_parse = uuid(uuid_string);
-    let id = new mongoose.Types.Buffer(uuidParse.parse(uuid_string));
+    let id = new Mongoose.Types.Buffer(uuidParse.parse(uuid_string));
 
-    id.subtype(bson.Binary.SUBTYPE_UUID);
+    id.subtype(BSON.Binary.SUBTYPE_UUID);
     return id.toObject();
   }
 
-  static guid_to_byte_array(uuid_string) {
-    let bytes = [];
+  public static guid_to_byte_array(uuid_string: string ) {
+    let bytes: number[] = [];
 
     uuid_string.split("-").map((number, index) => {
-      let bytesInChar = index < 3 ? number.match(/.{1,2}/g).reverse() : number.match(/.{1,2}/g);
+   
+      if(number){
+        let match =  number.match(/.{1,2}/g);
+        if(match){
+          let bytesInChar = index < 3 ? match.reverse() : match;
 
-      bytesInChar.map((byte) => {
-        bytes.push(parseInt(byte, 16));
-      });
+          bytesInChar.map((byte) => {
+            bytes.push(parseInt(byte, 16));
+          });
+        }
+      }
     });
     return bytes;
   }
 
-  static decode_base64_to_utf8(base64_encoded_string) {
+  public static decode_base64_to_utf8(base64_encoded_string: string) {
     return Buffer.from(base64_encoded_string, "base64").toString("utf8");
   }
 
-  static encode_utf8_to_base64(utf8_string) {
+  public static encode_utf8_to_base64(utf8_string: string) {
     return Buffer.from(utf8_string).toString("base64");
   }
 
-  static unix_timestamp_to_po_date_time(UNIX_timestamp) {
+  public static unix_timestamp_to_po_date_time(UNIX_timestamp: number) {
     let date_obj = new Date(UNIX_timestamp * 1000);
     let months = [
       "Jan",
@@ -83,7 +89,7 @@ class TypeConversionService {
     return dateTime;
   }
 
-  static convert_string_to_json(string) {
+  public static convert_string_to_json(string: any) {
     let json_string = string;
 
     if (string && typeof string === "string") {
@@ -92,7 +98,7 @@ class TypeConversionService {
     return json_string;
   }
 
-  static convert_object_to_string(object) {
+  public static convert_object_to_string(object: any) {
 
     let obj = object;
 
@@ -105,5 +111,3 @@ class TypeConversionService {
     return obj;
   }
 }
-
-module.exports = TypeConversionService;

@@ -1,0 +1,38 @@
+export declare class BaseController {
+    private _name;
+    private _alternate_name;
+    private _application_root;
+    private _parent;
+    private _router;
+    private _app;
+    private _data_service;
+    private _message_service;
+    constructor(name: string, app: any, router: any, application_root: string, version: string, data_service: any, messaging_service: any, express_services?: any[], parent_controller?: any);
+    get router(): any;
+    get name(): string;
+    get alternate_name(): string;
+    get aggregate_route(): string;
+    get instance_route(): string;
+    get has_parent(): boolean;
+    private setup_router;
+    private setup_default_routes_on_router;
+    protected setup_all_requests(): void;
+    protected check_header(header: any): void;
+    protected static has_required_fields(data: any): boolean;
+    private check_express_app;
+    private check_express_router;
+    private check_services;
+    protected static parse_query_string_to_args(req: any): any[];
+    protected setup_aggregate_routes(): void;
+    protected setup_instance_routes(): void;
+    protected default_request(req: any, res: any): void;
+    static parse_query_string(req: any): any;
+    protected get_aggregate_request(req: any, res: any): void;
+    protected post_aggregate_request(req: any, res: any): void;
+    protected get_instance_request(req: any, res: any): void;
+    protected patch_instance_request(req: any, res: any): void;
+    protected delete_instance_request(req: any, res: any): void;
+    protected put_instance_request(req: any, res: any): void;
+    private set_router_to_application;
+    private nest_route;
+}

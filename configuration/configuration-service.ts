@@ -1,28 +1,34 @@
-const SafeService = require("ulti-safe-client");
+import
 
-class ConfigurationService {
+
+export class ConfigurationService {
+
+    private _configuration: any;
+    private _environment_variables: any;
+    private _vault_variables: any;
+    private _vault_service: any;
 
   //Initialize with a default configuration
-  constructor(configuration) {
+  constructor(configuration: any) {
     if (configuration) {
       this._configuration = configuration;
     }
-    this.environment_variables = process.env;
+    this._environment_variables = process.env;
   }
 
-  check_safe() {
+  check_vault() {
 
     let my_promise = null;
 
     let good_state = { "state": true,
-      "message": "Safe Overrides Applied" };
+      "message": "Vault Overrides Applied" };
 
-    if (this.environment_variables.SAFE_URI &&
-        this.environment_variables.SAFE_APPID &&
-        this.environment_variables.SAFE_USERID &&
-        this.environment_variables.SAFE_PATH) {
+    if (this._environment_variables.SAFE_URI &&
+        this._environment_variables.SAFE_APPID &&
+        this._environment_variables.SAFE_USERID &&
+        this._environment_variables.SAFE_PATH) {
       my_promise = new Promise((resolve) => {
-        this.safe_service = new SafeService(
+        this._vault_service = new SafeService(
           this.environment_variables.SAFE_URI,
           "v1",
           this.environment_variables.SAFE_APPID,
@@ -72,20 +78,20 @@ class ConfigurationService {
         return resolve(good_state);
       });
     } else if (
-      this.environment_variables["_safe.uri"] &&
-    this.environment_variables["_safe.cert"] &&
-    this.environment_variables["_safe.key"] &&
-    this.environment_variables["_safe.ca"] &&
-    this.environment_variables["_safe.path"]) {
+      this._environment_variables["_safe.uri"] &&
+    this._environment_variables["_safe.cert"] &&
+    this._environment_variables["_safe.key"] &&
+    this._environment_variables["_safe.ca"] &&
+    this._environment_variables["_safe.path"]) {
 
       my_promise = new Promise((resolve, reject) => {
-        let buff = Buffer.from(this.environment_variables["_safe.cert"], "base64");
+        let buff = Buffer.from(this._environment_variables["_safe.cert"], "base64");
         let cert = buff.toString("ascii");
 
-        buff = Buffer.from(this.environment_variables["_safe.key"], "base64");
+        buff = Buffer.from(this._environment_variables["_safe.key"], "base64");
         let key = buff.toString("ascii");
 
-        buff = Buffer.from(this.environment_variables["_safe.ca"], "base64");
+        buff = Buffer.from(this._environment_variables["_safe.ca"], "base64");
         let ca = buff.toString("ascii");
 
         this.safe_service = new SafeService(
@@ -115,12 +121,13 @@ class ConfigurationService {
     this._configuration = this.merge(configuration, config);
     return this.configuration;
   }
+  
 
   /*
    * Any conflicts by name or name-dot notation combination in environment variables, it will override
    * configuration
    */
-  apply_environment_override(object = this._configuration, parent = "") {
+  public apply_environment_override(object = this._configuration, parent = "") {
 
     for (let property in object) {
       if (Object.prototype.hasOwnProperty.call(object, property)) {
@@ -136,28 +143,29 @@ class ConfigurationService {
           this.apply_environment_override(object[property], full_prop_name);
         }
 
-        if (this.environment_variables[full_prop_name]) {
+        if (this._environment_variables[full_prop_name]) {
           if (typeof object[property] === "boolean") {
-            object[property] = this.environment_variables[full_prop_name] == "true";
+            object[property] = this._environment_variables[full_prop_name] == "true";
           } else if (isNaN(object[property]) === false) {
-            object[property] = parseInt(this.environment_variables[full_prop_name], 10);
+            object[property] = parseInt(this._environment_variables[full_prop_name], 10);
           } else {
-            object[property] = this.environment_variables[full_prop_name];
+            object[property] = this._environment_variables[full_prop_name];
           }
         }
       }
     }
   }
 
-  apply_safe_overrides(object = this._configuration, parent = "") {
+  
+  apply_vault_overrides(object = this._configuration, parent = "") {
 
-    return this.check_safe().then((resp) => {
+    return this.check_vault().then((resp) => {
       if (resp.state) {
         if (this.safe_service) {
           return this.safe_service.list(this.environment_variables.SAFE_PATH || this.environment_variables["_safe.path"])
             .then((result) => {
               this.safe_variables = result;
-              this.apply_safe_override(object, parent);
+              this.apply_vault_override(object, parent);
               return Promise.resolve(resp);
             }).then(() => {
               return this.safe_service.revoke_token();
@@ -168,7 +176,7 @@ class ConfigurationService {
     });
   }
 
-  apply_safe_override(object = this._configuration, parent = "") {
+  apply_vault_override(object = this._configuration, parent = "") {
     for (let property in object) {
       if (Object.prototype.hasOwnProperty.call(object, property)) {
         let full_prop_name = null;
@@ -180,7 +188,7 @@ class ConfigurationService {
         }
 
         if (typeof object[property] === "object") {
-          this.apply_safe_override(object[property], full_prop_name);
+          this.apply_vault_override(object[property], full_prop_name);
         }
 
         if (this.safe_variables[full_prop_name]) {
@@ -196,11 +204,13 @@ class ConfigurationService {
     }
   }
 
+
+
   /*
    * Merges two (or more) objects,
    * giving the last one precedence
    */
-  merge(target, source) {
+  private merge(target: any, source: any) {
     if (typeof target !== "object") {
       target = {};
     }
@@ -226,4 +236,3 @@ class ConfigurationService {
     return this._configuration;
   }
 }
-module.exports = ConfigurationService;
