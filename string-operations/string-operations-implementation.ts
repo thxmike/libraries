@@ -1,7 +1,9 @@
 import { TypeConversionService } from '@thxmike/type-conversion';
 import * as uuid from 'uuid';
 
-export class StringService {
+import { IStringOperationsService } from './istring-operations-service';
+
+export class StringOperationsService implements IStringOperationsService {
 
   /*
    * @clean_string: removes tabs, new lines and carriage returns
@@ -77,7 +79,7 @@ export class StringService {
     let octet_string = "";
 
     byte_array.forEach((byte) => {
-      octet_string = `${octet_string}\\x${StringService.to_upper_case(StringService.pad_value(StringService.to_hex_string(byte), 2, "0"))}`;
+      octet_string = `${octet_string}\\x${StringOperationsService.to_upper_case(StringOperationsService.pad_value(StringOperationsService.to_hex_string(byte), 2, "0"))}`;
     });
 
     return octet_string;
@@ -95,14 +97,14 @@ export class StringService {
 
     let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890";
 
-    return StringService.generate_random(length, chars);
+    return StringOperationsService.generate_random(length, chars);
   }
 
   public static generate_random_alpha_numeric_string(length: number) {
 
     let chars = "ABCDEFGHIJKLMNOP1234567890";
 
-    return StringService.generate_random(length, chars);
+    return StringOperationsService.generate_random(length, chars);
   }
 
   public static generate_random(length: number, char_set: string) {

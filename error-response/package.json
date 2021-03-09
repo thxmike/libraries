@@ -1,14 +1,17 @@
 {
     "name": "@thxmike/error-response",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "nodejs library to check if errors exists in a response object and parse the error out",
-    "main": "./lib/error-response-service",
+    "main": "lib/error-response-implementation.js",
+    "types": "lib/error-response-implementation.d.ts",
+    "type": "module",
     "directories": {
         "lib": "lib"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc ."
+        "prepublish": "tsc",
+        "build": "tsc"
     },
     "author": "Michael Rivera",
     "license": "ISC",

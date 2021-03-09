@@ -1,6 +1,8 @@
 import { StringService } from '@thxmike/string-operations';
 
-export class ErrorResponseService {
+import { IErrorResponseService } from './ierror-response-service';
+
+export class ErrorResponseService implements IErrorResponseService {
 
   public static is_in_error_state({ err, response, body }: { err: any; response: any; body: any; }) {
 

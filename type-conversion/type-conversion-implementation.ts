@@ -3,11 +3,13 @@ import * as Mongoose from 'mongoose';
 import * as util from 'util';
 import * as uuidParse from 'uuid-parse';
 
-export class TypeConversionService {
+import { ITypeConversionService } from './itype-conversion-service';
+
+export class TypeConversionService implements ITypeConversionService {
 
   public static convert_objectid_to_uuid(object_id: string, pad_left: boolean = false) {
     let id = "";
-    //example: aa50d124-713e-11ea-bc55-0242ac130003
+    //example: convert this 5d6ede6a0ba62570afcedd3a to 00000000-5d6e-de6a-0ba6-2570afcedd3a or 5d6ede6a-0ba6-2570-afcedd3a00000000
 
     if (object_id.length === 24) {
       if (pad_left) {
