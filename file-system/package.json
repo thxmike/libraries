@@ -1,13 +1,17 @@
 {
     "name": "@thxmike/file-system",
-    "version": "0.0.1",
+    "version": "0.1.8",
     "description": "Abstraction for the file system node module",
-    "main": "./lib/file_system_service.js",
+    "main": "lib/file-system-implementation.js",
+    "types": "lib/file-system-implementation.d.ts",
+    "type": "module",
     "directories": {
         "lib": "lib"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepublish": "tsc",
+        "build": "tsc"
     },
     "repository": {
         "type": "git",
@@ -19,6 +23,10 @@
     "author": "Michael Rivera",
     "license": "ISC",
     "dependencies": {
-        "bluebird": "^3.7.2"
+        "bluebird": "^3.7.2",
+        "@types/bluebird": "^3.5.33"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.33"
     }
 }
