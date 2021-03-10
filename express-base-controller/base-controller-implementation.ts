@@ -1,6 +1,8 @@
 import pluralize from 'pluralize';
 
-export class BaseController {
+import { IBaseController } from './ibase-controller-service';
+
+export class BaseController implements IBaseController {
 
   private _name: string;
 
@@ -80,12 +82,12 @@ export class BaseController {
   }
 
   private setup_default_routes_on_router() {
-    this.setup_all_requests();
+    this.setup_express_all_requests();
     this.setup_aggregate_routes();
     this.setup_instance_routes();
   }
 
-  protected setup_all_requests() {
+  public setup_express_all_requests() {
     this._router.use((req: any, res: any, next: any) => {
       this.check_header(req.headers);
       next();
@@ -93,9 +95,9 @@ export class BaseController {
   }
 
   //@virtual
-  protected check_header(header: any) {}
+  public check_header(header: any): any {}
 
-  protected static has_required_fields(data: any) {
+  public static has_required_fields(data: any) {
     let required_fields_available = true;
 
     if (!data.code || !data.name || !data.description) {
@@ -193,7 +195,7 @@ export class BaseController {
    * Add Top Level Routes (All Entities)
    * route = {application_root}/{instance}s/
    */
-  protected setup_aggregate_routes() {
+  public setup_aggregate_routes() {
     this._router
       .route(this.aggregate_route)
       .get(this.get_aggregate_request.bind(this))
@@ -204,7 +206,7 @@ export class BaseController {
    *Add instance Level Routes
    *route = {application_root}/{instance}s/{instance_id}/
    */
-  protected setup_instance_routes() {
+  public setup_instance_routes() {
 
     this._router
       .route(this.instance_route)
@@ -214,7 +216,7 @@ export class BaseController {
       .delete(this.delete_instance_request.bind(this));
   }
 
-  protected default_request(req: any, res: any) {
+  public default_request(req: any, res: any): void {
 
     let message = "Not Implemented";
 
@@ -231,27 +233,27 @@ export class BaseController {
     return req.query;
   }
 
-  protected get_aggregate_request(req: any, res: any) {
-    return this.default_request(req, res);
+  public get_aggregate_request(req: any, res: any): void {
+    this.default_request(req, res);
   }
 
-  protected post_aggregate_request(req: any, res: any) {
-    return this.default_request(req, res);
+  public post_aggregate_request(req: any, res: any): void {
+    this.default_request(req, res);
   }
 
-  protected get_instance_request(req: any, res: any) {
-    return this.default_request(req, res);
+  public get_instance_request(req: any, res: any): void {
+    this.default_request(req, res);
   }
 
-  protected patch_instance_request(req: any, res: any) {
-    return this.default_request(req, res);
+  public patch_instance_request(req: any, res: any): void {
+    this.default_request(req, res);
   }
 
-  protected delete_instance_request(req: any, res: any) {
-    return this.default_request(req, res);
+  public delete_instance_request(req: any, res: any): void {
+    this.default_request(req, res);
   }
 
-  protected put_instance_request(req: any, res: any) {
+  public put_instance_request(req: any, res: any): void {
     this.default_request(req, res);
   }
 
