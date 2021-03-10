@@ -1,16 +1,26 @@
-const body_parser = require("body-parser");
-const compression = require("compression");
-const express = require("express");
+import body_parser from 'body-parser';
+import compression from 'compression';
+import express from 'express';
 
-class AppControllerService {
+import { IAppControllerService } from './iapp-controller-service';
+
+export class AppControllerService implements IAppControllerService {
+
+  private _app: any;
+  private _whitelist: any;
+  private _allowed_headers: any;
+  private _allowed_methods: any;
+  private _json_options: any;
+  private _url_encoded_options: any;
+
   constructor(
     app = express(),
-    allowed_domains = ["https://myclient.us.corp"],
+    allowed_domains = ["https://myclient.somedomain.com"],
     allowed_methods = ["GET"],
     allowed_headers = ["Content-Type"],
     logger = null,
-    json_options = {},
-    url_encoded_options = {}
+    json_options: any = {},
+    url_encoded_options: any = {}
   ) {
     this._app = app;
     this._whitelist = allowed_domains;
@@ -33,18 +43,13 @@ class AppControllerService {
   }
 
   //private
-  setup_app() {
+  private setup_app() {
+
     this._app.use(compression());
     this._app.use(body_parser.urlencoded(this._url_encoded_options));
     this._app.use(body_parser.json(this._json_options));
 
-    this._app.on("error", (error) => {
-      return res.status(403).json({
-        error: "Internal Server Error",
-      });
-    });
-
-    this._app.use((req, res, next) => {
+    this._app.use((req: any, res: any, next: any) => {
       let origin = req.get("origin");
 
       if (origin) {
@@ -58,11 +63,16 @@ class AppControllerService {
       }
 
       AppControllerService.set_default_security_headers(res);
+      this._app.on("error", (error: any) => {
+        return res.status(403).json({
+          error: `Internal Server Error ${error}`,
+        });
+      });
       return next();
     });
   }
 
-  static set_default_security_headers(res) {
+  private static set_default_security_headers(res: any) {
     res.setHeader("X-XSS-Protection", "1; mode=block");
     res.setHeader(
       "Strict-Transport-Security",
@@ -72,7 +82,7 @@ class AppControllerService {
     res.setHeader("X-Content-Type-Options", "nosniff");
   }
 
-  set_cors_headers(origin, verb, res) {
+  private set_cors_headers(origin: any, verb: any, res: any) {
     if (verb === "OPTIONS") {
       AppControllerService.set_cors_origin(res, origin);
       this.set_cors_additional_headers(res);
@@ -81,11 +91,11 @@ class AppControllerService {
     }
   }
 
-  static set_cors_origin(res, domain) {
+  private static set_cors_origin(res: any, domain: string) {
     res.setHeader("Access-Control-Allow-Origin", domain);
   }
 
-  set_cors_additional_headers(res) {
+  private set_cors_additional_headers(res: any) {
     res.setHeader(
       "Access-Control-Allow-Headers",
       this._allowed_headers.join(", ")
@@ -97,7 +107,7 @@ class AppControllerService {
     res.setHeader("Access-Control-Allow-Credentials", true);
   }
 
-  is_whitelisted(request_origin) {
+  private is_whitelisted(request_origin: any) {
     let test = false;
     let origin_index = this._whitelist.indexOf(request_origin);
 
@@ -107,4 +117,3 @@ class AppControllerService {
     return test;
   }
 }
-module.exports = AppControllerService;

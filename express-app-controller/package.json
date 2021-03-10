@@ -1,13 +1,17 @@
 {
   "name": "@thxmike/express-app-controller",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "\"Default Express App Route Settings\"",
-  "main": "./lib/app-controller-service.js",
+  "main": "lib/app-controller-implementation.js",
+  "types": "lib/app-controller-implementation.d.ts",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,8 +23,14 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/compression": "^1.7.0",
+    "@types/express": "^4.17.11",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.33"
   }
 }
