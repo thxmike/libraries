@@ -1,0 +1,29 @@
+{
+  "name": "@thxmike/azure-key-vault-client",
+  "version": "0.1.3",
+  "description": "",
+  "main": "lib/azure-key-vault-implementation.js",
+  "types": "lib/azure-key-vault-implementation.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc",
+    "build": "tsc"
+  },
+  "author": "Rivera",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "@azure/identity": "^1.2.4",
+    "@azure/keyvault-secrets": "^4.1.0"
+  }
+}
