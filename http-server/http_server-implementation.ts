@@ -1,23 +1,30 @@
-const fs = require("fs");
-const https = require("https");
-const http = require("http");
-const WebSocket = require("ws");
+import fs from 'fs';
+import http from 'http';
+import https from 'https';
 
-class HttpServerService {
+import { IHttpServerService } from './ihttp_server-service';
+
+export class HttpServerService implements IHttpServerService{
+  
+  private _ports: Array<number>;
+  private _app: any;
+  private _application_name: string;
+  private _certificate_obj: any;
+
   //public
+  //TODO seperate the websocket server from web server
   constructor(
-    app,
-    port = 3000,
-    certificate_location = null,
-    key_location = null,
-    use_web_sockets = false
+    app: any,
+    port: any = 3000,
+    certificate_location: string = "",
+    key_location: string = "",
+    use_web_sockets: boolean = false
   ) {
     this._ports = [port];
     if (port.includes(",")) {
       this._ports = port.split(",");
     }
     this._app = app;
-    this._use_web_sockets = use_web_sockets;
     this._application_name = "default";
 
     if (certificate_location && key_location) {
@@ -28,25 +35,25 @@ class HttpServerService {
     }
   }
 
-  get socket_server() {
-    return this._socket_server;
+  public get application_name(): string {
+    return this._application_name;
   }
 
-  set application_name(value) {
+  public set application_name(value: string) {
     this._application_name = value;
   }
 
-  get_certificate_data() {
+  private get_certificate_data() {
     return Promise.all([
       this.get_certificate_file_content(),
       this.get_key_file_content()
     ]);
   }
 
-  get_certificate_file_content() {
+  private get_certificate_file_content() {
     console.debug(`Reading Certificate`);
     return new Promise((resolve, reject) => {
-      fs.readFile(this._certificate_obj.cert, "utf-8", (err, data) => {
+      fs.readFile(this._certificate_obj.cert, "utf-8", (err: any, data: any) => {
         if (err) {
           reject(err);
         }
@@ -55,10 +62,10 @@ class HttpServerService {
     });
   }
 
-  get_key_file_content() {
+  private get_key_file_content() {
     console.debug(`Reading Key`);
     return new Promise((resolve, reject) => {
-      fs.readFile(this._certificate_obj.key, "utf-8", (err, data) => {
+      fs.readFile(this._certificate_obj.key, "utf-8", (err: any, data: any) => {
         if (err) {
           reject(err);
         }
@@ -67,24 +74,24 @@ class HttpServerService {
     });
   }
 
-  start() {
+  public start(): Promise<void> {
     return new Promise((resolve, reject) => {
       let server = null;
       console.debug('Starting Express HTTP Servers');
-      this._ports.forEach((port, index) => {
+      this._ports.forEach((port: number, index: number) => {
         if (
-          port === "443" ||
-          port === "3443" ||
-          port === "4443" ||
-          port === "5443" ||
-          port === "6443" ||
-          port === "7443" ||
-          port === "8443" ||
-          port === "9443"
+          port === 443 ||
+          port === 3443 ||
+          port === 4443 ||
+          port === 5443 ||
+          port === 6443 ||
+          port === 7443 ||
+          port === 8443 ||
+          port === 9443
         ) {
           console.debug('Setting Up Express HTTPS Server');
           this.get_certificate_data()
-            .then((data) => {
+            .then((data: Array<any>) => {
               let cert_object = {
                 "key": data[1],
                 "cert": data[0]
@@ -108,20 +115,13 @@ class HttpServerService {
     });
   }
 
-  _finalize_setup(server, port) {
+  private _finalize_setup(server: any, port: number) {
     server.listen(port);
-
-    if (this._use_web_sockets) {
-      console.debug('Setting Up WebSocket Server')
-      this._socket_server = new WebSocket.Server({ server });
-      console.log("Using websockets");
-    }
 
     this._magic(port);
   }
 
-  _magic(port) {
+  _magic(port: number) {
     console.log(`The magic happens on port(s) ${port}`);
   }
 }
-module.exports = HttpServerService;
