@@ -1,5 +1,5 @@
-const RestService = require("rest-client");
-const TypeConversionService = require("type-conversion");
+import { RestClientService } from '@thxmike/rest-client';
+import { TypeConversionService } from '@thxmike/type-conversion';
 
 /*
  *
@@ -20,40 +20,53 @@ const TypeConversionService = require("type-conversion");
  * be used at the resource server making the introspection call.
  */
 
-class ExpressIdentityJWTTokenIntrospectionService {
-  constructor(introspection_uri, client_id, client_secret = null) {
+export class ExpressIdentityJWTTokenIntrospectionService {
+  private _introspection_uri: string;
+  private _client_id: string;
+  private _grant_type: string;
+  private _rest_service: RestClientService;
+  private _auth_token: string = "";
 
-    this._introspection_uri = introspection_uri; //https://corpfedtest.ultimatesoftware.com/as/introspect.oauth2
+  constructor(
+    introspection_uri: string,
+    client_id: string,
+    client_secret = ""
+  ) {
+    this._introspection_uri = introspection_uri;
     this._client_id = client_id;
     //defaults to i - implicit, c - client credentials
     this._grant_type = "i";
-    this._type_conversion_service = new TypeConversionService();
-    this._rest_service = new RestService();
+    this._rest_service = new RestClientService();
 
     if (client_secret) {
-      this._client_secret = client_secret;
-      let encoded_creds = TypeConversionService.encode_utf8_to_base64(`${client_id}:${client_secret}`);
+      let encoded_creds = TypeConversionService.encode_utf8_to_base64(
+        `${client_id}:${client_secret}`
+      );
 
       this._auth_token = `${encoded_creds}`;
       this._grant_type = "c";
     }
   }
 
-  introspect_token(token) {
-
+  public introspect_token(token: string): Promise<any> {
     const uri = `${this._introspection_uri}?token=${token}`;
-    let local_promise = {};
-    let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+    let local_promise: Promise<any>;
+    let headers: { "Content-Type": string; Authorization?: string } = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
 
-    if (this._grant_type === "i") { //implicit
-      local_promise = this._rest_service.post(uri, `client_id=${this._client_id}`, headers, true);
-    } else { //client credential
+    if (this._grant_type === "i") {
+      //implicit
+      local_promise = this._rest_service.post(
+        uri,
+        `client_id=${this._client_id}`,
+        headers
+      );
+    } else {
+      //client credential
       headers.Authorization = `Basic ${this._auth_token}`;
-      local_promise = this._rest_service.post(uri, null, headers, true);
+      local_promise = this._rest_service.post(uri, null, headers);
     }
     return local_promise;
   }
-
 }
-
-module.exports = ExpressIdentityJWTTokenIntrospectionService;

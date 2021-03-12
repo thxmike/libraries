@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const RestService = require("rest-client");
-const TypeConversionService = require("type-conversion");
+import { RestClientService } from '@thxmike/rest-client';
+import { TypeConversionService } from '@thxmike/type-conversion';
+import jwt, { Algorithm } from 'jsonwebtoken';
 
 /*
  *
@@ -21,15 +21,22 @@ const TypeConversionService = require("type-conversion");
  * be used at the resource server making the introspection call.
  */
 
-class ExpressIdentityJWTTokenSigningService {
-  constructor(jkws_oauth_keyset_uri) {
+export class ExpressIdentityJWTTokenSigningService {
+
+  private _jkws_oauth_keyset_uri: string;
+  private _rest_service : RestClientService;
+  private _type_conversion_service: TypeConversionService;
+  private _public_keyset: any;
+  private _public_key: any;
+
+  constructor(jkws_oauth_keyset_uri: string) {
     this._jkws_oauth_keyset_uri = jkws_oauth_keyset_uri;
-    this._rest_service = new RestService();
+    this._rest_service = new RestClientService();
     this._type_conversion_service = new TypeConversionService();
     this._public_keyset = null;
   }
 
-  verify_token(token) {
+  public verify_token(token: string) {
 
     let decoded_token = ExpressIdentityJWTTokenSigningService.decoded_token(token);
     let id = ExpressIdentityJWTTokenSigningService.get_key_id(decoded_token);
@@ -38,7 +45,7 @@ class ExpressIdentityJWTTokenSigningService {
     let promise = Promise.resolve();
 
     if (!this._public_keyset) {
-      promise = this.retrieve_jwks_data().then((keyset) => {
+      promise = this.retrieve_jwks_data().then((keyset: any) => {
         this._public_keyset = keyset;
         this.set_public_key(id);
         return Promise.resolve();
@@ -57,29 +64,29 @@ class ExpressIdentityJWTTokenSigningService {
     });
   }
 
-  retrieve_jwks_data() {
-    return this._rest_service.get(this._jkws_oauth_keyset_uri)
-      .then((result) => {
+  private retrieve_jwks_data() {
+    return this._rest_service.get(this._jkws_oauth_keyset_uri, '', '')
+      .then((result: any) => {
         let public_keyset = JSON.parse(result);
 
         return Promise.resolve(public_keyset);
       });
   }
 
-  static decoded_token(token) {
+  private static decoded_token(token: string) {
     return jwt.decode(token, { "complete": true });
   }
 
-  static get_key_id(decoded_token) {
+  private static get_key_id(decoded_token: any) {
     return decoded_token.header.kid;
   }
 
-  static get_key_alg(decoded_token) {
+  private static get_key_alg(decoded_token: any) {
     return decoded_token.header.alg;
   }
 
-  set_public_key(id) {
-    this._public_keyset.keys.forEach((public_key_item) => {
+  private set_public_key(id: any) {
+    this._public_keyset.keys.forEach((public_key_item: any) => {
       if (id === public_key_item.kid) {
         //this._public_key = TypeConversionService.decode_base64_to_utf8(public_key_item.x5c[0]);
         this._public_key = `-----BEGIN CERTIFICATE-----\n${public_key_item.x5c[0]}\n-----END CERTIFICATE-----`;
@@ -88,10 +95,13 @@ class ExpressIdentityJWTTokenSigningService {
   }
 
   //verify signature and decode token
-  verify_token_signature(token, alg = "RS256") {
+  private verify_token_signature(token: string, alg: Algorithm = "RS256") {
+
+    let list_algorithms: Array<Algorithm> = []
+    list_algorithms.push(alg);
 
     return new Promise((resolve, reject) => {
-      jwt.verify(token.trim(), this._public_key, { "algorithms": [alg] }, (err, decoded) => {
+      jwt.verify(token.trim(), this._public_key, { algorithms: list_algorithms }, (err: any, decoded: any) => {
         if (err) {
           return reject(err);
         }
@@ -100,5 +110,3 @@ class ExpressIdentityJWTTokenSigningService {
     });
   }
 }
-
-module.exports = ExpressIdentityJWTTokenSigningService;

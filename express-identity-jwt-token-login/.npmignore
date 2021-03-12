@@ -1,4 +1,5 @@
 express-identity-jwt-claims-inspector-service.ts
 express-identity-jwt-token-introspection-service.ts
 express-identity-jwt-token-login-service.ts
+iexpress-identity-jwt-token-login-implementation.ts
 express-identity-jwt-token-signing-service.ts

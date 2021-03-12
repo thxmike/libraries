@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-identity-jwt-token-login",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Identity JWT Authentication Service for Express Middleware",
   "main": "lib/express-identity-jwt-token-login-service.js",
   "types": "lib/express-identity-jwt-token-login-service.d.ts",
@@ -20,7 +20,11 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "jsonwebtoken": "^8.5.1",
-    "@thxmike/rest-client": "0.0.1"
+    "@thxmike/rest-client": "0.1.22",
+    "@thxmike/type-conversion": "^0.1.5",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0"
   }
 }
