@@ -3,7 +3,10 @@ import list_endpoints from 'express-list-endpoints';
 import health from 'express-ping';
 import swaggerUi from 'swagger-ui-express';
 
-export class RootController {
+import { IRootController } from './iroot-controller-service';
+
+
+export class RootController implements IRootController {
 
   private _app: any;
   private _health: any;

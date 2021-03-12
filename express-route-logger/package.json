@@ -1,10 +1,17 @@
 {
   "name": "@thxmike/express-route-logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "\"Provides route logging services as Express Middleware\"",
-  "main": "lib/express-route-logging-service.js",
+  "main": "lib/express-identity-jwt-token-login-service.js",
+  "types": "lib/express-identity-jwt-token-login-service.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
