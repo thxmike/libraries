@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/http-server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "nodejs http(s) server",
   "main": "lib/http-server-implementation.js",
   "types": "lib/http-server-implementation.d.ts",

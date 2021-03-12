@@ -2,7 +2,7 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 
-import { IHttpServerService } from './ihttp_server-service';
+import { IHttpServerService } from './ihttp-server-service';
 
 export class HttpServerService implements IHttpServerService{
   
