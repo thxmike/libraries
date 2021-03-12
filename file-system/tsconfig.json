@@ -8,7 +8,8 @@
     "declaration": true,
     "outDir": "lib",
     "types": ["node"],
-    "typeRoots": ["../node_modules/@types"]
+    "typeRoots": ["../node_modules/@types"],
+    "sourceMap": true
   },
   "include": ["**/*.ts"],
   "exclude": ["tests", "dist", "node_modules", "lib"]

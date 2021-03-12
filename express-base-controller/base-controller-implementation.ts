@@ -10,15 +10,15 @@ export class BaseController implements IBaseController {
 
   private _application_root: string;
 
-  private _parent: any;
+  protected _parent: any;
 
   private _router: any;
 
   private _app: any;
 
-  private _data_service: any;
+  protected _data_service: any;
 
-  private _message_service: any;
+  protected _message_service: any;
 
   //private _services_collection: BaseController[];
 

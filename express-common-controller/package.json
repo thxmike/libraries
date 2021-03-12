@@ -1,13 +1,17 @@
 {
   "name": "@thxmike/express-common-controller",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This is a common controller that can be used as a starting point for express.",
-  "main": "lib/common-controller-service.js",
+  "main": "lib/common-controller-implementation.js",
+  "types": "lib/common-controller-implementation.d.ts",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -16,7 +20,10 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/express-base-controller": "0.0.1",
-    "@thxmike/type-conversion": "0.0.2"
+    "@thxmike/express-base-controller": "0.2.1",
+    "@thxmike/type-conversion": "0.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.33"
   }
 }

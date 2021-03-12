@@ -1,11 +1,11 @@
-const BaseController = require("express-base-controller");
-const TypeConversionClient = require("type-conversion");
+import { BaseController } from '@thxmike/express-base-controller';
+import { TypeConversionService } from '@thxmike/type-conversion';
 
-const util = require("util");
+import { ICommonController } from './icommon-controller-service';
 
-class CommonController extends BaseController {
+export class CommonController extends BaseController implements ICommonController{
 
-  get_aggregate_request(req, res) {
+  public get_aggregate_request(req: any, res: any) {
 
     let filter = this._check_filter(req);
 
@@ -26,24 +26,24 @@ class CommonController extends BaseController {
 
     let args = BaseController.parse_query_string_to_args(req);
 
-    this._data_service.get_count(args[2]).then((cnt) => {
+    this._data_service.get_count(args[2]).then((cnt: number) => {
       count = cnt;
       if((((args[0] - 1) * args[1]) > count) && args[0] !== 1){
         return Promise.reject({ "code": 404, "error": 'page not found' });
       }
       return this._data_service.get_aggregate_operation(...args);
 
-    }).then((response) => {
+    }).then((response: any) => {
       res.header("count", count);
       this._setup_header(args, res, response);
       res.status(response.status).json(response.message);
-    }).catch((err) => {
-      return this.send_error(res, req, err, this.constructor.name, "get_aggregate_request");
+    }).catch((err: any) => {
+      return this._send_error(res, req, err, this.constructor.name, "get_aggregate_request");
     });
   }
 
 
-  _check_filter(req){
+  _check_filter(req: any){
     let filter = {};
     if(req.query.filter) {
       filter = req.query.filter;
@@ -56,7 +56,7 @@ class CommonController extends BaseController {
   }
 
 
-  post_aggregate_request(req, res) {
+  public post_aggregate_request(req: any, res: any) {
 
     if (this.has_parent) {
       let parts = req.baseUrl.split("/");
@@ -64,47 +64,47 @@ class CommonController extends BaseController {
       req.body[`${this._parent.alternate_name}_id`] = parts[parts.length - 1];
     }
 
-    this._data_service.post_operation(req.body).then((response) => {
+    this._data_service.post_operation(req.body).then((response: any) => {
       res.status(response.status).json(response.message);
-    }).catch((err) => {
-      return  this.send_error(res, req, err, this.constructor.name, "post_aggregate_request");
+    }).catch((err: any) => {
+      return  this._send_error(res, req, err, this.constructor.name, "post_aggregate_request");
     });
   }
 
-  get_instance_request(req, res) {
+  public get_instance_request(req: any, res: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.get_instance_operation_by_id(id).then((response) => {
+    this._data_service.get_instance_operation_by_id(id).then((response: any) => {
       res.status(response.status).json(response.message);
-    }).catch((err) => {
-      return this.send_error(res, req, err, this.constructor.name, "get_instance_request");
+    }).catch((err: any) => {
+      return this._send_error(res, req, err, this.constructor.name, "get_instance_request");
     });
   }
 
-  patch_instance_request(req, res) {
+  public patch_instance_request(req: any, res: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.patch_operation(id, req.body).then((response) => {
+    this._data_service.patch_operation(id, req.body).then((response: any) => {
       res.status(response.status).json(response.message);
-    }).catch((err) => {
-      return this.send_error(res, req, err, this.constructor.name, "patch_instance_request");
+    }).catch((err: any) => {
+      return this._send_error(res, req, err, this.constructor.name, "patch_instance_request");
     });
   }
 
-  delete_instance_request(req, res) {
+  public delete_instance_request(req: any, res: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.delete_operation(id, req.body).then((response) => {
+    this._data_service.delete_operation(id, req.body).then((response: any) => {
       res.status(response.status).json(response.message);
-    }).catch((err) => {
-      return this.send_error(res, req, err, this.constructor.name, "delete_instance_request");
+    }).catch((err: any) => {
+      return this._send_error(res, req, err, this.constructor.name, "delete_instance_request");
     });
   }
 
-  send_error(res, req, err, class_name, method) {
+  private _send_error(res: any, req: any, err: any, class_name: string, method: string) {
 
     let code = 400;
     if(err.code){
@@ -112,11 +112,11 @@ class CommonController extends BaseController {
     }
     err.path = req.path;
     res.status(code).send(err);
-    console.log(`${class_name}.${method}: ${TypeConversionClient.convert_object_to_string(err)}`);
+    console.log(`${class_name}.${method}: ${TypeConversionService.convert_object_to_string(err)}`);
     return Promise.resolve();
   }
 
-  _setup_header(args, res, response){
+  private _setup_header(args: any, res: any, response: any){
     
     if(args[0] !== null){
       res.header("page", args[0]);
@@ -126,5 +126,3 @@ class CommonController extends BaseController {
     }
   }
 }
-
-module.exports = CommonController;

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-base-controller",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Express base controller that can be inherited",
   "main": "lib/base-controller-implementation.js",
   "types": "lib/base-controller-implementation.d.ts",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc",
+    "prepublish": "tsc && npm version patch",
     "build": "tsc"
   },
   "repository": {

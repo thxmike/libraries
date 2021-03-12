@@ -2,12 +2,16 @@
   "name": "@thxmike/express-identity-jwt-token-login",
   "version": "0.0.1",
   "description": "Identity JWT Authentication Service for Express Middleware",
-  "main": "lib/express-identity-jwt-token-login-service",
+  "main": "lib/express-identity-jwt-token-login-service.js",
+  "types": "lib/express-identity-jwt-token-login-service.d.ts",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

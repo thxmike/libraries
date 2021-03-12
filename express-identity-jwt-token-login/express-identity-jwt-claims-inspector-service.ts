@@ -1,6 +1,6 @@
 const RestService = require("rest-client");
 
-class ExpressIdentityJWTClaimsInspectorService {
+export class ExpressIdentityJWTClaimsInspectorService {
 
   constructor(uri) {
     this._claims = [];
