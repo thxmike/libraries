@@ -1,20 +1,20 @@
+import { TypeConversionService } from '@thxmike/type-conversion';
 
-const TypeConversionClient = require("type-conversion");
 
-class ConsoleService {
+export class ConsoleService {
 
-  constructor(is_debug_mode, console) {
+  constructor(is_debug_mode: boolean, console: any) {
 
     console.custom = true;
     if (is_debug_mode) {
       //do nothing
-      console.debug = (...args) => {
+      console.debug = (...args: Array<any>) => {
 
-        let updated_args = [];
+        let updated_args: Array<any> = [];
 
         args.forEach((arg) => {
           if (typeof args === "object") {
-            updated_args.push(TypeConversionClient.convert_object_to_string(arg));
+            updated_args.push(TypeConversionService.convert_object_to_string(arg));
           } else {
             updated_args.push(arg);
           }
@@ -28,4 +28,3 @@ class ConsoleService {
     return console;
   }
 }
-module.exports = ConsoleService;

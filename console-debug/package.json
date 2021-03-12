@@ -1,13 +1,17 @@
 {
   "name": "@thxmike/console-debug",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A way to send or not to send messages to the console",
-  "main": "./lib/console_debug_service.js",
+  "main": "lib/console-debug-implementation.js",
+  "types": "lib/console-debug-implementation.d.ts",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,6 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/type-conversion": "0.0.1"
+    "@thxmike/type-conversion": "0.1.5"
   }
 }

@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/configuration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Configuration Service used to extend and merge NodeJS Configurations",
-  "main": "lib/azure-key-vault-implementation.js",
-  "types": "lib/azure-key-vault-implementation.d.ts",
+  "main": "lib/configuration-implementation.js",
+  "types": "lib/configuration-implementation.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"

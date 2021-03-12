@@ -1,5 +1,7 @@
-class JsonMessageService {
-  static not_authorized(message) {
+import { IJsonMessageService } from './ijson-message-service';
+
+export class JsonMessageService implements IJsonMessageService {
+  static not_authorized(message: string) {
     return {
       "code": "401",
       "type": "Unauthorized",
@@ -7,7 +9,7 @@ class JsonMessageService {
     };
   }
 
-  static param_does_not_exist(param) {
+  static param_does_not_exist(param: string) {
     return {
       "code": 400,
       "type": "Bad Request",
@@ -15,7 +17,7 @@ class JsonMessageService {
     };
   }
 
-  static query_string_does_not_exist(param) {
+  static query_string_does_not_exist(param: string) {
     return {
       "code": 400,
       "type": "Bad Request",
@@ -31,4 +33,3 @@ class JsonMessageService {
     };
   }
 }
-module.exports = JsonMessageService;

@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/express-route-logger",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "\"Provides route logging services as Express Middleware\"",
-  "main": "lib/express-identity-jwt-token-login-service.js",
-  "types": "lib/express-identity-jwt-token-login-service.d.ts",
+  "main": "lib/express-route-logging-implementation.js",
+  "types": "lib/express-route-logging-implementation.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"

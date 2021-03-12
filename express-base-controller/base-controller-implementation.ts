@@ -4,15 +4,15 @@ import { IBaseController } from './ibase-controller-service';
 
 export class BaseController implements IBaseController {
 
-  private _name: string;
+  protected _name: string;
 
-  private _alternate_name: string;
+  protected _alternate_name: string;
 
   private _application_root: string;
 
   protected _parent: any;
 
-  private _router: any;
+  protected _router: any;
 
   private _app: any;
 

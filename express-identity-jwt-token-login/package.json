@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/express-identity-jwt-token-login",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Identity JWT Authentication Service for Express Middleware",
-  "main": "lib/express-identity-jwt-token-login-service.js",
-  "types": "lib/express-identity-jwt-token-login-service.d.ts",
+  "main": "lib/express-identity-jwt-token-login-implementation.js",
+  "types": "lib/express-identity-jwt-token-login-implementation.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"

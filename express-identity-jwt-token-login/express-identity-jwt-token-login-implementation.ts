@@ -1,27 +1,28 @@
 import { ExpressIdentityJWTClaimsInspectorService } from './express-identity-jwt-claims-inspector-service';
-import { ExpressIdentityJWTTokenIntrospectionService } from './express-identity-jwt-token-introspection-service';
 import { ExpressIdentityJWTTokenSigningService } from './express-identity-jwt-token-signing-service';
 
 export class ExpressIdentityJWTTokenLoginService {
   private _token_cache: any;
-  private _express_identity_token_introspection_service: ExpressIdentityJWTTokenIntrospectionService;
+  //private _express_identity_token_introspection_service: ExpressIdentityJWTTokenIntrospectionService;
   private _express_identity_token_signing_service: ExpressIdentityJWTTokenSigningService;
   private _express_identity_token_claims_service: ExpressIdentityJWTClaimsInspectorService;
 
   constructor(
     openid_configuration_uri: string,
     jkws_oauth_keyset_uri: string,
-    introspection_uri: string,
+    introspection_uri: string = '',
     user_info_endpoint_uri: string,
     client_id: string,
     client_secret: string
   ) {
     this._token_cache = [];
+    /*
     this._express_identity_token_introspection_service = new ExpressIdentityJWTTokenIntrospectionService(
       introspection_uri,
       client_id,
       client_secret
     );
+    */
     this._express_identity_token_signing_service = new ExpressIdentityJWTTokenSigningService(
       jkws_oauth_keyset_uri
     );
@@ -54,6 +55,8 @@ export class ExpressIdentityJWTTokenLoginService {
       return this.end_identity_check(next);
     }
 
+    // MS Azure does not currently provide an introspection endpoint, removing for now till I can find a way to deal with this
+    /*
     this._express_identity_token_introspection_service
       .introspect_token(token)
       .then((result: any) => {
@@ -62,8 +65,8 @@ export class ExpressIdentityJWTTokenLoginService {
         if (!body.active) {
           return Promise.reject(new Error("Introspection - Unauthorized"));
         }
-        return this._express_identity_token_signing_service.verify_token(token);
-      })
+        */
+    return this._express_identity_token_signing_service.verify_token(token)
       .then((result: any) => {
         result.type = "user";
         if (!result.username && !result.email) {
