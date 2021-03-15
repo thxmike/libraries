@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-app-controller",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "\"Default Express App Route Settings\"",
   "main": "lib/app-controller-implementation.js",
   "types": "lib/app-controller-implementation.d.ts",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc && npm version patch",
+    "prepare": "tsc && npm version patch",
     "build": "tsc"
   },
   "repository": {

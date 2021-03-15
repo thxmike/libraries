@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/azure-key-vault-client",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "main": "lib/azure-key-vault-implementation.js",
   "types": "lib/azure-key-vault-implementation.d.ts",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc && npm version patch",
+    "prepare": "tsc && npm version patch",
     "build": "tsc"
   },
   "author": "Rivera",

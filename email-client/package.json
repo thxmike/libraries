@@ -10,8 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "xcopy template.html lib /Y",
-    "prepublish": "tsc && npm version patch",
+    "prepare": "tsc && npm version patch &&& xcopy template.html lib /Y",
     "build": "tsc"
   },
   "publishConfig": {

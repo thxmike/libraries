@@ -1,5 +1,7 @@
-import { ExpressIdentityJWTClaimsInspectorService } from './express-identity-jwt-claims-inspector-service';
-import { ExpressIdentityJWTTokenSigningService } from './express-identity-jwt-token-signing-service';
+import { ExpressIdentityJWTClaimsInspectorService } from './express-identity-jwt-claims-inspector-service.js';
+import { ExpressIdentityJWTTokenSigningService } from './express-identity-jwt-token-signing-service.js';
+
+//import { ExpressIdentityJWTTokenIntrospectionService } from './express-identity-jwt-token-introspection-service.js';
 
 export class ExpressIdentityJWTTokenLoginService {
   private _token_cache: any;
@@ -180,5 +182,3 @@ export class ExpressIdentityJWTTokenLoginService {
     return access_token;
   }
 }
-
-module.exports = ExpressIdentityJWTTokenLoginService;

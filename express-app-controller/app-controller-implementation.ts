@@ -18,7 +18,7 @@ export class AppControllerService implements IAppControllerService {
     allowed_domains = ["https://myclient.somedomain.com"],
     allowed_methods = ["GET"],
     allowed_headers = ["Content-Type"],
-    logger = null,
+    logger: any = {},
     json_options: any = {},
     url_encoded_options: any = {}
   ) {
@@ -32,7 +32,7 @@ export class AppControllerService implements IAppControllerService {
     url_encoded_options.limit = "5mb";
     this._url_encoded_options = url_encoded_options;
 
-    if (logger) {
+    if (Object.getOwnPropertyNames(logger).length >= 1 ) {
       this._app.use(logger);
     }
     this.setup_app();

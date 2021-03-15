@@ -1,0 +1,29 @@
+{
+  "name": "mssql-client",
+  "version": "0.0.1",
+  "description": "A client to query mssql server",
+  "main": "lib/mssql-client-implementation.js",
+  "types": "lib/mssql-client-implementation.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thxmike/libraries.git"
+  },
+  "author": "Rivera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thxmike/libraries/issues"
+  },
+  "homepage": "https://github.com/thxmike/libraries#readme",
+  "dependencies": {
+    "mssql": "^6.3.1"
+  }
+}

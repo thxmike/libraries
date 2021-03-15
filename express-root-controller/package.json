@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-root-controller",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "\"Root Controller to be use in API, provides health and list endpoints\"",
   "main": "lib/root-controller-implementation.js",
   "types": "lib/root-controller-implementation.d.ts",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc && npm version patch",
+    "prepare": "tsc && npm version patch",
     "build": "tsc"
   },
   "repository": {
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/express-list-endpoints": "^4.0.1",
-    "@types/node": "^14.14.33",
+    "@types/node": "^14.14.34",
     "@types/swagger-ui-express": "^4.1.2"
   }
 }
