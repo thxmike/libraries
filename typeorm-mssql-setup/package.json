@@ -1,0 +1,31 @@
+{
+  "name": "@thxmike/typeorm-mssql-setup",
+  "version": "0.0.12",
+  "description": "This sets up the initial configuration for typeorm",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thxmike/libraries.git"
+  },
+  "author": "Rivera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thxmike/libraries/issues"
+  },
+  "homepage": "https://github.com/thxmike/libraries#readme",
+  "dependencies": {
+    "mssql": "^6.3.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.31"
+  }
+}
