@@ -4,7 +4,7 @@ import { IBaseController } from './ibase-controller-service';
 
 export class BaseController implements IBaseController {
 
-  protected _name: string;
+  private _name: string;
 
   protected _alternate_name: string;
 
@@ -16,35 +16,16 @@ export class BaseController implements IBaseController {
 
   private _app: any;
 
-  protected _data_service: any;
+  private _data_service: any;
 
   protected _message_service: any;
 
-  //private _services_collection: BaseController[];
+  protected get data_service(): any {
+    return this._data_service;
+  }
 
-  constructor(
-    name: string,
-    app: any,
-    router: any,
-    application_root: string,
-    version: string,
-    data_service: any,
-    messaging_service: any,
-    express_services: any[] = [],
-    parent_controller: any = null
-  ) {
-
-    this._name = name;
-    this._alternate_name = name.replace(/-/g, "_");
-    this._application_root = `${application_root}${version}`;
-
-    this.check_express_app(app);
-    this.check_express_router(router);
-    this.check_services(data_service, messaging_service, express_services);
-
-    this._parent = parent_controller;
-
-    this.setup_router();
+  protected get message_service(): any {
+    return this._message_service;
   }
 
   public get router() {
@@ -69,6 +50,31 @@ export class BaseController implements IBaseController {
 
   public get has_parent() {
     return Boolean(this._parent);
+  }
+
+  constructor(
+    name: string,
+    app: any,
+    router: any,
+    application_root: string,
+    version: string,
+    data_service: any,
+    messaging_service: any,
+    express_services: any[] = [],
+    parent_controller: any = null
+  ) {
+
+    this._name = name;
+    this._alternate_name = name.replace(/-/g, "_");
+    this._application_root = `${application_root}${version}`;
+
+    this.check_express_app(app);
+    this.check_express_router(router);
+    this.check_services(data_service, messaging_service, express_services);
+
+    this._parent = parent_controller;
+
+    this.setup_router();
   }
 
   private setup_router() {

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/typeorm-mssql-setup",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "This sets up the initial configuration for typeorm",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

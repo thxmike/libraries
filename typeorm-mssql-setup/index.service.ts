@@ -1,6 +1,4 @@
-import { Connection } from 'typeorm';
-
-export interface ITypeOrmMssqlSetupService{
-    setup(): Promise<Connection>;
+export interface ITypeOrmMssqlSetupService {
+    initialize(): Promise<void>;
     close(): Promise<void>;
 }
