@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/configuration",
-  "version": "0.1.7",
+  "version": "0.2.8",
   "description": "Configuration Service used to extend and merge NodeJS Configurations",
   "main": "lib/configuration-implementation.js",
   "types": "lib/configuration-implementation.d.ts",
@@ -23,10 +23,10 @@
     "url": "https://github.com/thxmike/libraries.git"
   },
   "dependencies": {
-    "@thxmike/azure-key-vault-client": "^0.1.4",
+    "@thxmike/azure-key-vault-client": "^0.1.5",
     "@thxmike/file-system": "0.1.8"
   },
   "devDependencies": {
-    "@types/node": "^14.14.34"
+    "@types/node": "^14.14.35"
   }
 }

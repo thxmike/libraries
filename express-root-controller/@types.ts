@@ -1,0 +1,1 @@
+declare module '@thxmike/express-ping'

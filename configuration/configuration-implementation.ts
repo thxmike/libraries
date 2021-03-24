@@ -1,4 +1,5 @@
 import { AzureKeyVaultClientService } from '@thxmike/azure-key-vault-client';
+import { resolve } from 'node:path';
 
 import { IConfigurationService } from './iconfiguration-service';
 
@@ -19,20 +20,29 @@ export class ConfigurationService implements IConfigurationService {
   private check_azure_vault(): Promise<any> {
     let my_promise = null;
     let good_state = { state: true, message: "Vault Overrides Applied" };
-    if (this._environment_variables.AZURE_KEY_STORE_URI &&
-        this._environment_variables.AZURE_CLIENT_ID &&
-        this._environment_variables.AZURE_CLIENT_SECRET &&
-        this._environment_variables.AZURE_TENANT_ID) {
-        my_promise = new Promise((resolve) => {
-            this._vault_service = new AzureKeyVaultClientService(this._environment_variables.AZURE_KEY_STORE_URI);
-            resolve(good_state);
+    if (
+      this._environment_variables.AZURE_KEY_STORE_URI &&
+      this._environment_variables.AZURE_CLIENT_ID &&
+      this._environment_variables.AZURE_CLIENT_SECRET &&
+      this._environment_variables.AZURE_TENANT_ID
+    ) {
+      my_promise = new Promise((resolve) => {
+        this._vault_service = new AzureKeyVaultClientService(
+          this._environment_variables.AZURE_KEY_STORE_URI
+        );
+        resolve(good_state);
+      });
+    } else {
+      my_promise = new Promise((resolve) => {
+        this._vault_service = new AzureKeyVaultClientService(
+          this._environment_variables.AZURE_KEY_STORE_URI
+        );
+        resolve({
+          state: false,
+          message:
+            "Environment variables AZURE_KEY_STORE_URI, AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET are not setup. The system will attempt to use ManagedIdentityCredential for connecting to Vault. Continuing",
         });
-    }
-    else {
-        my_promise = Promise.reject({
-            state: false,
-            message: "Environment variables AZURE_KEY_STORE_URI, AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET are not setup. Unable to use Vault. Continuing",
-        });
+      });
     }
     return my_promise;
   }
@@ -93,16 +103,16 @@ export class ConfigurationService implements IConfigurationService {
     return this.check_azure_vault()
       .then(() => {
         return this._vault_service.list();
-      }).then((list) => {
+      })
+      .then((list) => {
         this._vault_variables = list;
         return new Promise((resolve, reject) => {
-          this.apply_azure_vault_override(config, resolve);
-          resolve("Azure vault overrides applied");
+          return this.apply_azure_vault_override(config, resolve);
+        });
       });
-    });
   }
 
-  private apply_azure_vault_override(
+  private async apply_azure_vault_override(
     config: any,
     resolve: any,
     parent: string = "",
@@ -110,30 +120,38 @@ export class ConfigurationService implements IConfigurationService {
   ) {
     for (let property in config) {
       if (Object.prototype.hasOwnProperty.call(config, property)) {
-          let full_prop_name = null;
-          if (parent) {
-              full_prop_name = `${parent}-${property}`;
-          }
-          else {
-              full_prop_name = property;
-          }
-          if (typeof config[property] === "object") {
-              level += 1;
-              this.apply_azure_vault_override(config[property], resolve, full_prop_name, level);
-          }
-          if (this._vault_variables[full_prop_name]) {
-              if (typeof config[property] === "boolean") {
-                  config[property] = this._vault_variables[full_prop_name] == "true";
-              }
-              else if (isNaN(config[property]) === false) {
-                  config[property] = parseInt(this._vault_variables[full_prop_name], 10);
-              }
-              else {
-                  config[property] = this._vault_variables[full_prop_name];
-              }
+        let full_prop_name = null;
+        if (parent) {
+          full_prop_name = `${parent}-${property}`;
+          level += 1;
+        } else {
+          full_prop_name = property;
+        }
+        if (typeof config[property] === "object") {
+          await this.apply_azure_vault_override(
+            config[property],
+            resolve,
+            full_prop_name,
+            level
+          );
+        }
+        if (this._vault_variables.includes(full_prop_name)) {
+          let secret = await this._vault_service.read(full_prop_name);
+          let val = secret.value;
+
+          if (typeof val === "boolean") {
+            config[property] = val === true;
+          } else if (isNaN(val) === false) {
+            config[property] = parseInt(val, 10);
+          } else {
+            config[property] = val;
           }
         }
       }
+    }
+    if (level === 0) {
+      return resolve();
+    }
   }
 
   //Returns the current configuration

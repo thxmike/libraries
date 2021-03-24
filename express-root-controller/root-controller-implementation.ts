@@ -1,6 +1,6 @@
+import health from '@thxmike/express-ping';
 import express from 'express';
 import list_endpoints from 'express-list-endpoints';
-import health from 'express-ping';
 import swaggerUi from 'swagger-ui-express';
 
 import { IRootController } from './iroot-controller-service';
