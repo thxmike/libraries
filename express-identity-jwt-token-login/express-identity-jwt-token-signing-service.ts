@@ -67,7 +67,7 @@ export class ExpressIdentityJWTTokenSigningService {
   private retrieve_jwks_data() {
     return this._rest_service.get(this._jkws_oauth_keyset_uri, '', '')
       .then((result: any) => {
-        let public_keyset = JSON.parse(result);
+        let public_keyset = result;
 
         return Promise.resolve(public_keyset);
       });

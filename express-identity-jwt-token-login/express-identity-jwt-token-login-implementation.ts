@@ -1,10 +1,12 @@
 import { ExpressIdentityJWTClaimsInspectorService } from './express-identity-jwt-claims-inspector-service.js';
 import { ExpressIdentityJWTTokenSigningService } from './express-identity-jwt-token-signing-service.js';
 
+// Introspection is currently not supported by MS excluded for now
 //import { ExpressIdentityJWTTokenIntrospectionService } from './express-identity-jwt-token-introspection-service.js';
 
 export class ExpressIdentityJWTTokenLoginService {
   private _token_cache: any;
+  // Introspection is currently not supported by MS excluded for now
   //private _express_identity_token_introspection_service: ExpressIdentityJWTTokenIntrospectionService;
   private _express_identity_token_signing_service: ExpressIdentityJWTTokenSigningService;
   private _express_identity_token_claims_service: ExpressIdentityJWTClaimsInspectorService;
@@ -19,6 +21,7 @@ export class ExpressIdentityJWTTokenLoginService {
   ) {
     this._token_cache = [];
     /*
+    // Introspection is currently not supported by MS excluded for now
     this._express_identity_token_introspection_service = new ExpressIdentityJWTTokenIntrospectionService(
       introspection_uri,
       client_id,
