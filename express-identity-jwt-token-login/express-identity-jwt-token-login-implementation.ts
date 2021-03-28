@@ -14,7 +14,7 @@ export class ExpressIdentityJWTTokenLoginService {
   constructor(
     openid_configuration_uri: string,
     jkws_oauth_keyset_uri: string,
-    introspection_uri: string = '',
+    introspection_uri: string = "",
     user_info_endpoint_uri: string,
     client_id: string,
     client_secret: string
@@ -44,12 +44,18 @@ export class ExpressIdentityJWTTokenLoginService {
     if (
       !ExpressIdentityJWTTokenLoginService.check_valid_authorization_header(req)
     ) {
-      this.send_error_message(res, "Missing - Not Authorized");
+      this.send_error_message(res, "Missing Token");
       return;
     }
-    let token = ExpressIdentityJWTTokenLoginService.parse_credentials_token(
-      req.headers.authorization
-    );
+    let token = "";
+    try {
+      token = ExpressIdentityJWTTokenLoginService.parse_credentials_token(
+        req.headers.authorization
+      );
+    } catch (err) {
+      this.send_error_message(res, err);
+      return;
+    }
 
     let found_cached_token = false;
     let epoch_date_now = Date.now();
@@ -71,7 +77,8 @@ export class ExpressIdentityJWTTokenLoginService {
           return Promise.reject(new Error("Introspection - Unauthorized"));
         }
         */
-    return this._express_identity_token_signing_service.verify_token(token)
+    return this._express_identity_token_signing_service
+      .verify_token(token)
       .then((result: any) => {
         result.type = "user";
         if (!result.username && !result.email) {
@@ -97,7 +104,7 @@ export class ExpressIdentityJWTTokenLoginService {
         let id = claims["Object GUID"];
 
         if (!id) {
-          return Promise.reject(new Error("Claim - Unauthorized"));
+          return Promise.reject("Missing Claim");
         }
         this.update_token_cache(token, expire_time);
         return this.end_identity_check(next);
@@ -157,10 +164,7 @@ export class ExpressIdentityJWTTokenLoginService {
   }
 
   private send_error_message(res: any, message: any) {
-    res.status(401).json({
-      code: 401,
-      message,
-    });
+    res.status(401).send(message);
   }
 
   private static check_valid_authorization_header(req: any) {
