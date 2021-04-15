@@ -239,27 +239,27 @@ export class BaseController implements IBaseController {
     return req.query;
   }
 
-  public get_aggregate_request(req: any, res: any): void {
+  public get_aggregate_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
-  public post_aggregate_request(req: any, res: any): void {
+  public post_aggregate_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
-  public get_instance_request(req: any, res: any): void {
+  public get_instance_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
-  public patch_instance_request(req: any, res: any): void {
+  public patch_instance_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
-  public delete_instance_request(req: any, res: any): void {
+  public delete_instance_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
-  public put_instance_request(req: any, res: any): void {
+  public put_instance_request(req: any, res: any, next: any): void {
     this.default_request(req, res);
   }
 
