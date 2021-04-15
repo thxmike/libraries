@@ -77,6 +77,7 @@ export class ExpressIdentityJWTTokenLoginService {
           return Promise.reject(new Error("Introspection - Unauthorized"));
         }
         */
+       try{
     return this._express_identity_token_signing_service
       .verify_token(token)
       .then((result: any) => {
@@ -118,6 +119,10 @@ export class ExpressIdentityJWTTokenLoginService {
         }
         this.send_error_message(res, message);
       });
+    } catch(e){
+      this.send_error_message(res, e.message);
+    }
+
   }
 
   private check_token_cache(token: string, epoch_date_now: number) {

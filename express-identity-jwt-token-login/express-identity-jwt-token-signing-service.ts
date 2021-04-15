@@ -39,6 +39,9 @@ export class ExpressIdentityJWTTokenSigningService {
   public verify_token(token: string) {
 
     let decoded_token = ExpressIdentityJWTTokenSigningService.decoded_token(token);
+    if(!decoded_token){
+      throw new Error("The token sent is malformed and is unable to be decoded");
+    }
     let id = ExpressIdentityJWTTokenSigningService.get_key_id(decoded_token);
     let algorithm = ExpressIdentityJWTTokenSigningService.get_key_alg(decoded_token);
 
