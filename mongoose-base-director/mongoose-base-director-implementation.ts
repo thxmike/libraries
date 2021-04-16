@@ -1,30 +1,32 @@
+import { IMongooseBaseDirector } from './imongoose-base-director-service';
+
 //Base Class
-class BaseMongooseDirector {
-  constructor(mongoose) {
+export class MongooseBaseDirector implements IMongooseBaseDirector {
+
+  private _mongoose: any;
+  private _managers: any
+
+  constructor(mongoose: any) {
 
     if (!mongoose.Types.UUID) {
-      throw new Error("This object requires an mongoose instance from the Mongoose Setup Service");
+      console.log("UUID's are unable to be used with this instance of MongoDB");
     }
-    this.mongoose = mongoose;
+    this._mongoose = mongoose;
 
     const schemas = this.setup_schemas();
 
     this._managers = this.setup_managers(schemas);
   }
 
-  //@override
   get director() {
     throw new Error("Base Method director - This method must have an override. This must return all of the model managers");
   }
 
-  //@override
   setup_schemas() {
     throw new Error("Base Method setup_schemas - This method must have an override. This must define all of your schema definitions");
   }
 
-  //@override
-  setup_managers(schemas) {
+  setup_managers(schemas: any) {
     throw new Error("Base Method setup_managers - This method must have an override. This must setup all of the models for each schema");
   }
 }
-module.exports = BaseMongooseDirector;
