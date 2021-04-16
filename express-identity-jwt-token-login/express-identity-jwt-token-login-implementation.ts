@@ -169,6 +169,7 @@ export class ExpressIdentityJWTTokenLoginService {
   }
 
   private send_error_message(res: any, message: any) {
+    console.log(`Authentication Error: ${message}`);
     res.status(401).send(message);
   }
 

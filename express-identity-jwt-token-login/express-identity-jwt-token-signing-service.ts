@@ -60,10 +60,7 @@ export class ExpressIdentityJWTTokenSigningService {
     }).then((decoded_data) => {
       return Promise.resolve(decoded_data);
     }).catch((error) => {
-      return Promise.reject({
-        "code": 401,
-        "message": error.message
-      });
+      throw new Error(error.message);
     });
   }
 
