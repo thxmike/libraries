@@ -1,13 +1,17 @@
 {
   "name": "@thxmike/mongoose-setup",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "Sets up Mongoose eventing system",
-  "main": "lib/mongoose-setup-service.js",
+  "main": "lib/mongoose-setup-implementation.js",
+  "types": "lib/imongoose-setup-service.d.ts",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,11 +23,14 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "bson": "^4.1.0",
-    "mongoose": "^5.10.2",
+    "bson": "^4.3.0",
+    "mongoose": "^5.12.4",
     "mongoose-extend-schema": "git+https://github.com/thxmike/mongoose-extend-schema.git",
-    "normalizeurl": "0.0.1",
-    "uuid-mongodb": "2.3.0",
-    "uuid-parse": "^1.1.0"
+    "mongoose-uuid2": "^2.3.0",
+    "normalizeurl": "1.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.33"
   }
 }

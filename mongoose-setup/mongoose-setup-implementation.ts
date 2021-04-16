@@ -1,31 +1,23 @@
-const mongoose = require("mongoose");
+import * as mongoose from 'mongoose';
+import * as MongooseUUID2 from 'mongoose-uuid2';
+
+import { IMongooseSetupService } from './imongoose-setup-service.js';
+
+// Will add Url type mongoose.SchemaTypes.Url
+require('./mongoose-url-type.js');
+
+// Will add the UUID type to the Mongoose Schema types
+MongooseUUID2(mongoose);
 
 //Setup default with native ES6 Promise Library
-mongoose.Promise = Promise;
+(<any>mongoose).Promise = Promise;
 
-//Extend mongoose object with uuid functions - uuid.v4 method i.e. mongoose.uuid.v4
-const uuid = require("uuid-mongodb");
+export class MongooseSetupService implements IMongooseSetupService {
 
-//Extend mongoose object
-require("./mongoose-uuid-type")(mongoose);
+  private _mongoose: any;
+  private _director: any;
 
-//Extend mongoose object - Setup bson type - i.e. mongoose.bson
-const bson = require("bson");
-
-//Extend mongoose object - Setup Url type i.e. - mongoose.SchemaTypes.Url
-require("./mongoose-url-type")(mongoose);
-
-//Extend mongoose object - Setup extend_schema i.e. - mongoose.extend_schema();
-const extend_schema = require("mongoose-extend-schema");
-
-/*
- *Initializes new instance of mongoose, sets up instance, provides reference to instance
- *Wires up the models to the instance
- *Defaults to test database using uri string
- */
-class MongooseSetupService {
-
-  constructor(ModelDirector, uri = "mongodb://localhost:27017/test", debug = false, certificate = null, ca = null, app_name = "Custom Application", promise = null) {
+  constructor(ModelDirector: any, uri = "mongodb://localhost:27017/test", debug = false, username = '', password = '', certificate = '', ca = '', app_name = "Custom Application", promise = null) {
 
     this._mongoose = mongoose;
 
@@ -35,20 +27,15 @@ class MongooseSetupService {
       this._mongoose.Promise = promise;
     }
 
-    this._mongoose.uuid = uuid;
-    this._mongoose.bson = bson;
-    this._mongoose.extend_schema = extend_schema;
-    this._uri = uri;
-
-    const options = MongooseSetupService.define_options(app_name, certificate, ca);
+    const options = MongooseSetupService.define_options(app_name, username, password, certificate, ca);
 
     this._director = new ModelDirector(this._mongoose).director;
 
     this.connect(uri, options, db, debug);
   }
 
-  static define_options(app_name, certificate, ca) {
-    let options = {
+  static define_options(app_name: string, username?: string, password?: string, certificate?: string, ca?: string) {
+    let options: any = {
       "keepAlive": 300000,
       "useCreateIndex": true,
       "connectTimeoutMS": 30000,
@@ -57,6 +44,11 @@ class MongooseSetupService {
       "useNewUrlParser": true,
       "appname": app_name
     };
+
+    if(username && password){
+      options.user = username,
+      options.password = password
+    }
 
     if (certificate && ca) {
 
@@ -72,7 +64,7 @@ class MongooseSetupService {
     return options;
   }
 
-  connect(uri, options, db, debug) {
+  connect(uri: string, options: any, db: any, debug: any) {
 
     this._mongoose.set("debug", debug);
     this._mongoose.connect(uri, options)
@@ -80,7 +72,7 @@ class MongooseSetupService {
         console.log("Mongoose is Ready");
         this.listen(db);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         throw new Error(error);
       });
   }
@@ -93,8 +85,8 @@ class MongooseSetupService {
     return this._director;
   }
 
-  listen(db) {
-    db.on("error", (error) => {
+  listen(db: any) {
+    db.on("error", (error: any) => {
       console.error(`Mongoose connection error: ${error}`);
       db.close();
       this._mongoose.connection.close();
@@ -138,4 +130,3 @@ class MongooseSetupService {
     });
   }
 }
-module.exports = MongooseSetupService;
