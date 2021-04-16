@@ -2,7 +2,9 @@
   "name": "@thxmike/mongoose-base-schema",
   "version": "0.0.1",
   "description": "Sets up base schema for mongooose use",
-  "main": "lib/mongoose-base-schema.js",
+  "main": "lib/mongoose-base-schema-implementation.js",
+  "types": "lib/imongoose-base-schema-service.js",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
@@ -17,5 +19,8 @@
     "registry": "https://registry.npmjs.org"
   },
   "author": "Michael Rivera",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.14.41"
+  }
 }
