@@ -77,52 +77,52 @@ export class ExpressIdentityJWTTokenLoginService {
           return Promise.reject(new Error("Introspection - Unauthorized"));
         }
         */
-       try{
-    return this._express_identity_token_signing_service
-      .verify_token(token)
-      .then((result: any) => {
-        result.type = "user";
-        if (!result.username && !result.email) {
-          result.type = "service";
-          return Promise.resolve(result);
-        }
-        return this._express_identity_token_claims_service
-          .get_user_profile_claims(token)
-          .then((user_profile_claims: any) => {
-            let up_claims = JSON.parse(user_profile_claims);
-            let claims = { ...result, ...up_claims };
-            return Promise.resolve(claims);
-          });
-      })
-      .then((claims: any) => {
-        let expire_time = claims.exp * 1000;
-        //Service Account
-        if (claims.type && claims.type === "service") {
+    try {
+      return this._express_identity_token_signing_service
+        .verify_token(token)
+        .then((result: any) => {
+          result.type = "user";
+          if (!result.username && !result.email) {
+            result.type = "service";
+            return Promise.resolve(result);
+          }
+          return this._express_identity_token_claims_service
+            .get_user_profile_claims(token)
+            .then((user_profile_claims: any) => {
+              let up_claims = JSON.parse(user_profile_claims);
+              let claims = { ...result, ...up_claims };
+              return Promise.resolve(claims);
+            });
+        })
+        .then((claims: any) => {
+          let expire_time = claims.exp * 1000;
+          //Service Account
+          if (claims.type && claims.type === "service") {
+            this.update_token_cache(token, expire_time);
+            return this.end_identity_check(next);
+          } //User
+
+          let id = claims["Object GUID"];
+
+          if (!id) {
+            return Promise.reject("Missing Claim");
+          }
           this.update_token_cache(token, expire_time);
           return this.end_identity_check(next);
-        } //User
+        })
+        .catch((error: any) => {
+          //let response_code = error.trim().substring(0,3);
+          let message = error;
 
-        let id = claims["Object GUID"];
-
-        if (!id) {
-          return Promise.reject("Missing Claim");
-        }
-        this.update_token_cache(token, expire_time);
-        return this.end_identity_check(next);
-      })
-      .catch((error: any) => {
-        //let response_code = error.trim().substring(0,3);
-        let message = error;
-
-        if (error.message) {
-          message = error.message;
-        }
-        this.send_error_message(res, message);
-      });
-    } catch(e){
+          if (error.message) {
+            message = error.message;
+          }
+          this.send_error_message(res, message);
+        });
+    } catch (e) {
       this.send_error_message(res, e.message);
+      return;
     }
-
   }
 
   private check_token_cache(token: string, epoch_date_now: number) {
@@ -168,7 +168,7 @@ export class ExpressIdentityJWTTokenLoginService {
     return next();
   }
 
-  private send_error_message(res: any, message: any) {
+  private send_error_message(res: any, message: string) {
     console.log(`Authentication Error: ${message}`);
     res.status(401).send(message);
   }
