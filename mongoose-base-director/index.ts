@@ -1,10 +1,18 @@
-import { IMongooseBaseDirector } from './imongoose-base-director-service';
+import { IMongooseBaseDirector } from './iindex-service';
 
 //Base Class
-export class MongooseBaseDirector implements IMongooseBaseDirector {
+export abstract class MongooseBaseDirector implements IMongooseBaseDirector {
 
   private _mongoose: any;
-  private _managers: any
+  private _managers: any;
+
+  public get mongoose(): any {
+    return this._mongoose;
+  }
+
+  public get managers(): any {
+    return this._managers;
+  }
 
   constructor(mongoose: any) {
 

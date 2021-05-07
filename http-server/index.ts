@@ -2,7 +2,7 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 
-import { IHttpServerService } from './ihttp-server-service';
+import { IHttpServerService } from './iindex-service';
 
 export class HttpServerService implements IHttpServerService{
   
@@ -17,8 +17,7 @@ export class HttpServerService implements IHttpServerService{
     app: any,
     port: any = 3000,
     certificate_location: string = "",
-    key_location: string = "",
-    use_web_sockets: boolean = false
+    key_location: string = ""
   ) {
     this._ports = [port];
     if (port.includes(",")) {

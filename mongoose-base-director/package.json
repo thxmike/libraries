@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/mongoose-base-director",
-  "version": "0.1.2",
+  "version": "0.1.9",
   "description": "A Base class for setting up a mongoose director",
-  "main": "lib/mongoose-base-director-implementation.js",
-  "types": "lib/imongoose-base-director-service.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"
@@ -17,9 +17,13 @@
     "type": "git",
     "url": "https://github.com/thxmike/libraries.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "author": "Michael Rivera",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^14.14.33"
+    "@types/node": "^14.14.41"
   }
 }

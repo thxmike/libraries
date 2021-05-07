@@ -1,6 +1,6 @@
 import pluralize from 'pluralize';
 
-import { IBaseController } from './ibase-controller-service';
+import { IBaseController } from './iindex-service';
 
 export class BaseController implements IBaseController {
 
@@ -20,7 +20,7 @@ export class BaseController implements IBaseController {
 
   protected _message_service: any;
 
-  protected get data_service(): any {
+  public get data_service(): any {
     return this._data_service;
   }
 

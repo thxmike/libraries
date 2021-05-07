@@ -1,8 +1,16 @@
-import { IMongooseBaseSchema } from './imongoose-base-schema-service';
+import { IMongooseBaseSchema } from './iindex-service';
 
 export class MongooseBaseSchema implements IMongooseBaseSchema {
   private _mongoose: any;
   private _schema: any;
+
+  public get schema(){
+    return this._schema;
+  }
+
+  public get mongoose(){
+    return this._mongoose;
+  }
 
   constructor(mongoose: any) {
     this._mongoose = mongoose;
@@ -105,5 +113,6 @@ export class MongooseBaseSchema implements IMongooseBaseSchema {
     schema = setup_schema_options(schema);
 
     this._schema = setup_function_virtuals(schema, this._mongoose);
+    return this._schema;
   }
 }

@@ -1,1 +1,0 @@
-declare module 'mongoose-uuid2';

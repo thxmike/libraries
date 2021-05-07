@@ -1,22 +1,25 @@
 {
   "name": "@thxmike/mongoose-base-schema",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Sets up base schema for mongooose use",
-  "main": "lib/mongoose-base-schema-implementation.js",
-  "types": "lib/imongoose-base-schema-service.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/thxmike/libraries.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "author": "Michael Rivera",
   "license": "ISC",

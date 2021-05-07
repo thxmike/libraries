@@ -1,4 +1,3 @@
-import body_parser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 
@@ -46,10 +45,16 @@ export class AppControllerService implements IAppControllerService {
   private setup_app() {
 
     this._app.use(compression());
-    this._app.use(body_parser.urlencoded(this._url_encoded_options));
-    this._app.use(body_parser.json(this._json_options));
+    this._app.use(express.urlencoded(this._url_encoded_options));
+    this._app.use(express.json(this._json_options));
 
-    this._app.use((req: any, res: any, next: any) => {
+    this._app.use((err: any, req: any, res: any, next: any) => {
+
+      if(err){
+        console.error(err.stack);
+        res.status(err.status).send(`The request is malformed ${err.message}`);
+        return next();
+      }
       let origin = req.get("origin");
 
       if (origin) {

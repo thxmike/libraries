@@ -1,11 +1,11 @@
 import { BaseController } from '@thxmike/express-base-controller';
 import { TypeConversionService } from '@thxmike/type-conversion';
 
-import { ICommonController } from './icommon-controller-service';
+import { ICommonController } from './iindex-service';
 
 export class CommonController extends BaseController implements ICommonController{
 
-  public get_aggregate_request(req: any, res: any) {
+  public get_aggregate_request(req: any, res: any, next: any) {
 
     let filter = this._check_filter(req);
 
@@ -26,12 +26,12 @@ export class CommonController extends BaseController implements ICommonControlle
 
     let args = BaseController.parse_query_string_to_args(req);
 
-    this._data_service.get_count(args[2]).then((cnt: number) => {
+    this.data_service.get_count(args[2]).then((cnt: number) => {
       count = cnt;
       if((((args[0] - 1) * args[1]) > count) && args[0] !== 1){
         return Promise.reject({ "code": 404, "error": 'page not found' });
       }
-      return this._data_service.get_aggregate_operation(...args);
+      return this.data_service.get_aggregate_operation(...args);
 
     }).then((response: any) => {
       res.header("count", count);
@@ -56,7 +56,7 @@ export class CommonController extends BaseController implements ICommonControlle
   }
 
 
-  public post_aggregate_request(req: any, res: any) {
+  public post_aggregate_request(req: any, res: any, next: any) {
 
     if (this.has_parent) {
       let parts = req.baseUrl.split("/");
@@ -64,40 +64,40 @@ export class CommonController extends BaseController implements ICommonControlle
       req.body[`${this._parent.alternate_name}_id`] = parts[parts.length - 1];
     }
 
-    this._data_service.post_operation(req.body).then((response: any) => {
+    this.data_service.post_operation(req.body).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return  this._send_error(res, req, err, this.constructor.name, "post_aggregate_request");
     });
   }
 
-  public get_instance_request(req: any, res: any) {
+  public get_instance_request(req: any, res: any, next: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.get_instance_operation_by_id(id).then((response: any) => {
+    this.data_service.get_instance_operation_by_id(id).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return this._send_error(res, req, err, this.constructor.name, "get_instance_request");
     });
   }
 
-  public patch_instance_request(req: any, res: any) {
+  public patch_instance_request(req: any, res: any, next: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.patch_operation(id, req.body).then((response: any) => {
+    this.data_service.patch_operation(id, req.body).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return this._send_error(res, req, err, this.constructor.name, "patch_instance_request");
     });
   }
 
-  public delete_instance_request(req: any, res: any) {
+  public delete_instance_request(req: any, res: any, next: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
 
-    this._data_service.delete_operation(id, req.body).then((response: any) => {
+    this.data_service.delete_operation(id, req.body).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return this._send_error(res, req, err, this.constructor.name, "delete_instance_request");

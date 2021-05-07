@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/mongoose-setup",
-  "version": "0.1.2",
+  "version": "0.1.28",
   "description": "Sets up Mongoose eventing system",
-  "main": "lib/mongoose-setup-implementation.js",
-  "types": "lib/imongoose-setup-service.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"
@@ -18,19 +18,20 @@
     "url": "https://github.com/thxmike/libraries.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
+    "@thxmike/mongoose-url-type": "^1.0.9",
+    "@thxmike/mongoose-uuid-type": "^1.0.5",
     "bson": "^4.3.0",
-    "mongoose": "^5.12.4",
+    "mongoose": "*",
     "mongoose-extend-schema": "git+https://github.com/thxmike/mongoose-extend-schema.git",
-    "mongoose-uuid2": "^2.3.0",
-    "normalizeurl": "1.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/node": "^14.14.33"
+    "@types/node": "^15.0.2"
   }
 }

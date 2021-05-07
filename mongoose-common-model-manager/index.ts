@@ -1,10 +1,16 @@
-class CommonModelManager {
-  constructor(mongoose, model) {
-    this.mongoose = mongoose;
-    this.model = model;
+import { ICommonModelManager } from './iindex-service';
+
+export class CommonModelManager implements ICommonModelManager {
+
+  private _mongoose: any;
+  private _model: any;
+
+  constructor(mongoose: any, model: any) {
+    this._mongoose = mongoose;
+    this._model = model;
   }
 
-  default_filter(data) {
+  default_filter(data: any) {
     return {
       "code": data.code
     };
@@ -14,31 +20,31 @@ class CommonModelManager {
     //Mongoose is zero based but pagination is one based
     let mongoose_page = page - 1;
 
-    return this.model
+    return this._model
       .find(filter)
       .skip(mongoose_page * per_page)
       .limit(per_page)
       //.lean()
       .select({id: 1, code:1, name: 1})
       .exec()
-      .then((docs) => {
+      .then((docs: any) => {
         return CommonModelManager.promised_message(200, docs, false);
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
   get_count(filter = {}) {
-    return this.model.find(filter).countDocuments();
+    return this._model.find(filter).countDocuments();
   }
 
-  get_instance_operation_by_id(id) {
-    return this.model
+  get_instance_operation_by_id(id: string) {
+    return this._model
       .findById(id)
       //.lean()
       .exec()
-      .then((doc) => {
+      .then((doc: any) => {
         if (doc) {
           return CommonModelManager.promised_message(200, doc);
         }
@@ -48,80 +54,80 @@ class CommonModelManager {
           true
         );
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
-  get_instance_operation_by_code(code) {
-    return this.model
+  get_instance_operation_by_code(code: string) {
+    return this._model
       .find({
         code
       })
       .lean()
       .exec()
-      .then((doc) => {
+      .then((doc: any) => {
         return CommonModelManager.promised_message(200, doc);
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
-  post_operation(data) {
-    return this.model
+  post_operation(data: any) {
+    return this._model
       .findOne(this.default_filter(data))
       .exec()
-      .then((instance) => {
+      .then((instance: any) => {
         return this.check_if_exists(instance, data);
       })
       .then(() => {
-        return this.save_instance(this.model, data);
+        return this.save_instance(this._model, data);
       })
-      .then((instance) => {
+      .then((instance: any) => {
         return CommonModelManager.promised_message(
           200,
           instance
         );
       })
-      .catch((error) => {
+      .catch((error: any) => {
         return CommonModelManager.promised_message(
           !error.status ? 400 : error.status,
-          error.message
+          error.message, true
         );
       });
   }
 
-  patch_operation(id, request_data) {
-    return this.model
+  patch_operation(id: string, request_data: any) {
+    return this._model
       .findById(id)
       .exec()
-      .then((instance) => {
+      .then((instance: any) => {
         return this.check_patch_data(id, request_data, instance);
       })
-      .then((instance) => {
+      .then((instance: any) => {
         return CommonModelManager.promised_message(
           200,
           instance
         );
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
-  delete_operation(id, data, is_soft = true) {
+  delete_operation(id: string, data: any, is_soft: boolean = true) {
     if (is_soft) {
       return this.soft_delete(id, data);
     }
     return this.hard_delete(id, data);
   }
 
-  soft_delete(id, data) {
-    return this.model
+  soft_delete(id: string, data: any) {
+    return this._model
       .findById(id)
       .exec()
-      .then((instance) => {
+      .then((instance: any) => {
         let promise = null;
 
         if (!instance) {
@@ -140,22 +146,22 @@ class CommonModelManager {
         }
         return promise;
       })
-      .then((instance) => {
+      .then((instance: any) => {
         return CommonModelManager.promised_message(
           200,
           instance
         );
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
-  hard_delete(id, data) {
-    return this.model
+  hard_delete(id: string, data: any) {
+    return this._model
       .findById(id)
       .exec()
-      .then((instance) => {
+      .then((instance: any) => {
         let promise = null;
 
         if (!instance) {
@@ -166,24 +172,24 @@ class CommonModelManager {
           );
         }
         promise = this.check_nonce(data.nonce, instance.nonce);
-        promise = this.model.deleteOne({ "_id": instance._id }).exec();
+        promise = this._model.deleteOne({ "_id": instance._id }).exec();
         if (!promise) {
           promise = instance.save();
         }
         return promise;
       })
-      .then((instance) => {
+      .then((instance: any) => {
         return CommonModelManager.promised_message(
           200,
           `${CommonModelManager.determine_identifier(instance)} removed!`
         );
       })
-      .catch((error) => {
-        return CommonModelManager.promised_message(400, error.message);
+      .catch((error: any) => {
+        return CommonModelManager.promised_message(400, error.message, true);
       });
   }
 
-  check_patch_data(id, request_data, instance) {
+  check_patch_data(id: string, request_data: any, instance: any) {
     let promise = null;
 
     if (instance) {
@@ -202,7 +208,7 @@ class CommonModelManager {
     return promise;
   }
 
-  check_nonce(new_nonce, old_nonce) {
+  check_nonce(new_nonce: string, old_nonce: string): any {
     let promise = null;
 
     if (!CommonModelManager.nonce_exists(new_nonce)) {
@@ -223,7 +229,7 @@ class CommonModelManager {
     return promise;
   }
 
-  static determine_identifier(instance) {
+  static determine_identifier(instance: any) {
     let mess = "Item";
 
     if (instance && instance.code) {
@@ -236,7 +242,7 @@ class CommonModelManager {
     return mess;
   }
 
-  static nonce_exists(nonce) {
+  static nonce_exists(nonce: string) {
     let exists = false;
 
     if (nonce) {
@@ -245,7 +251,7 @@ class CommonModelManager {
     return exists;
   }
 
-  static nonce_matches(existing_nonce, requested_nonce) {
+  static nonce_matches(existing_nonce: string, requested_nonce: string) {
     let match = false;
 
     if (existing_nonce === requested_nonce) {
@@ -254,7 +260,7 @@ class CommonModelManager {
     return match;
   }
 
-  static promised_message(code, message, is_error) {
+  static promised_message(code: number, message: string, is_error: boolean = false) {
 
     let result = {
       "status": code,
@@ -268,8 +274,8 @@ class CommonModelManager {
     return Promise.resolve(result);
   }
 
-  set_data(ent, data) {
-    ent.nonce = this.mongoose.Types.ObjectId();
+  set_data(ent: any, data: any) {
+    ent.nonce = this._mongoose.Types.ObjectId();
     ent.timestamps.updated = Date.now();
     if (data.id) {
       ent.id = data.id;
@@ -288,11 +294,11 @@ class CommonModelManager {
     }
   }
 
-  check_sub_documents(instance) {
+  check_sub_documents(instance: any) {
     return Promise.resolve(instance);
   }
 
-  check_if_exists(instance, data) {
+  check_if_exists(instance: any, data: any) {
     if (instance) {
       let id = CommonModelManager.determine_identifier(instance);
       let test = CommonModelManager.promised_message(
@@ -306,7 +312,7 @@ class CommonModelManager {
     return this.check_sub_documents(data);
   }
 
-  save_instance(Model, data) {
+  save_instance(Model: any, data: any): any {
     let prom = {};
     let ent = new Model();
 
@@ -315,4 +321,3 @@ class CommonModelManager {
     return prom;
   }
 }
-module.exports = CommonModelManager;

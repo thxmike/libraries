@@ -1,10 +1,11 @@
-import * as mongoose from 'mongoose';
-import * as MongooseUUID2 from 'mongoose-uuid2';
+import { MongooseUrl } from '@thxmike/mongoose-url-type';
+import * as MongooseUUID2 from '@thxmike/mongoose-uuid-type';
+import mongoose from 'mongoose';
 
-import { IMongooseSetupService } from './imongoose-setup-service.js';
+import { IMongooseSetupService } from './iindex-service.js';
 
 // Will add Url type mongoose.SchemaTypes.Url
-require('./mongoose-url-type.js');
+MongooseUrl(mongoose);
 
 // Will add the UUID type to the Mongoose Schema types
 MongooseUUID2(mongoose);

@@ -1,0 +1,45 @@
+{
+  "name": "@thxmike/mongoose-url-type",
+  "version": "1.0.9",
+  "description": "A url field-type for Mongoose schemas. This is a fork of https://github.com/konsumer/mongoose-type-url",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "author": "Michael Rivera <thxmike@hotmail.com>, David Konsumer <konsumer@jetboystudio.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/thxmike/mongoose-type-url",
+  "dependencies": {
+    "cryptiles": "^4.1.2",
+    "normalize-url": "^6.0.0",
+    "@types/node": "^15.0.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.10.5",
+    "jest": "^26.6.3",
+    "mockingoose": "^2.15.2",
+    "mongoose": "^5.10.7",
+    "release-it": "^14.6.1"
+  },
+  "peerDependencies": {
+    "mongoose": "*"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

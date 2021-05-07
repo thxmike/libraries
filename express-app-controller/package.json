@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-app-controller",
-  "version": "0.1.2",
+  "version": "0.1.8",
   "description": "\"Default Express App Route Settings\"",
   "main": "lib/app-controller-implementation.js",
   "types": "lib/app-controller-implementation.d.ts",
@@ -23,14 +23,12 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@types/body-parser": "^1.19.0",
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.11",
-    "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.33"
+    "@types/node": "^15.0.2"
   }
 }

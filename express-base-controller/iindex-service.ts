@@ -8,6 +8,8 @@ export interface IBaseController {
 
   aggregate_route: string;
 
+  data_service: any;
+
   instance_route: string;
 
   has_parent: boolean;

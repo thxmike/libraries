@@ -1,9 +1,9 @@
 {
   "name": "@thxmike/express-base-controller",
-  "version": "0.2.6",
+  "version": "0.2.11",
   "description": "Express base controller that can be inherited",
-  "main": "lib/base-controller-implementation.js",
-  "types": "lib/base-controller-implementation.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"
@@ -18,7 +18,8 @@
     "url": "https://github.com/thxmike/libraries.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "author": "Michael Rivera",
   "license": "ISC",
@@ -27,6 +28,6 @@
     "@types/pluralize": "0.0.29"
   },
   "devDependencies": {
-    "@types/node": "^14.14.33"
+    "@types/node": "^14.14.41"
   }
 }
