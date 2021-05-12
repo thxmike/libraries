@@ -1,5 +1,1 @@
-export interface IMongooseBaseSchema {
-    schema: any;
-    
-    mongoose: any;
-}
+export interface IMongooseBaseSchema {};

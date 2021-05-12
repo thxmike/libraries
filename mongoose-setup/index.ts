@@ -1,14 +1,6 @@
-import { MongooseUrl } from '@thxmike/mongoose-url-type';
-import * as MongooseUUID2 from '@thxmike/mongoose-uuid-type';
-import mongoose from 'mongoose';
+import { mongoose } from '@thxmike/mongoose-custom';
 
 import { IMongooseSetupService } from './iindex-service.js';
-
-// Will add Url type mongoose.SchemaTypes.Url
-MongooseUrl(mongoose);
-
-// Will add the UUID type to the Mongoose Schema types
-MongooseUUID2(mongoose);
 
 //Setup default with native ES6 Promise Library
 (<any>mongoose).Promise = Promise;
@@ -40,10 +32,9 @@ export class MongooseSetupService implements IMongooseSetupService {
       "keepAlive": 300000,
       "useCreateIndex": true,
       "connectTimeoutMS": 30000,
-      "reconnectTries": Number.MAX_VALUE, //Never stop trying to reconnect
-      "reconnectInterval": 500, //Reconnect every 500ms
       "useNewUrlParser": true,
-      "appname": app_name
+      "appname": app_name,
+      "useUnifiedTopology": true
     };
 
     if(username && password){

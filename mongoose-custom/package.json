@@ -1,7 +1,7 @@
 {
-  "name": "@thxmike/mongoose-base-schema",
-  "version": "0.0.24",
-  "description": "Sets up base schema for mongooose use",
+  "name": "@thxmike/mongoose-custom",
+  "version": "0.1.1",
+  "description": "The extends the mongoose library to support some new types",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
@@ -23,13 +23,9 @@
   },
   "author": "Michael Rivera",
   "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^15.0.2",
-    "@types/uuid": "^8.3.0"
-  },
   "dependencies": {
-    "@thxmike/mongoose-custom": "^0.1.1",
-    "mongoose": "^5.12.7",
-    "uuid": "^8.3.2"
+    "@thxmike/mongoose-url-type": "^1.0.9",
+    "@thxmike/mongoose-uuid-type": "^1.0.13",
+    "mongoose": "^5.12.7"
   }
 }

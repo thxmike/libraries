@@ -18,7 +18,7 @@ export class CommonModelManager implements ICommonModelManager {
 
   get_aggregate_operation(page = 1, per_page = 50, filter = {}) {
     //Mongoose is zero based but pagination is one based
-    let mongoose_page = page - 1;
+    let mongoose_page = page < 1 ? 0 : page - 1;
 
     return this._model
       .find(filter)

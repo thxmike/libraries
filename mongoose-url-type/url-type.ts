@@ -7,6 +7,8 @@ export class Url extends mongoose.SchemaType {
 
     private defaults: any = {"message":""};
 
+    private options: any;
+
     constructor(path: any, options: any) {
       super(path, options, 'Url');
       this.validate(function (val: any) { return this.validateUrl(val, options) }, options.message || this.defaults.message || 'url is invalid')
@@ -27,7 +29,7 @@ export class Url extends mongoose.SchemaType {
         return this.regUrl.test(val)
     }
 
-    checkRequired = function (val: any) {
+    checkRequired(val: any) {
         return typeof val === 'string' && this.validateUrl(val, this.options)
     }
 }

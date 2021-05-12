@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-setup",
-  "version": "0.1.28",
+  "version": "0.1.45",
   "description": "Sets up Mongoose eventing system",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,10 +24,8 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "dependencies": {
-    "@thxmike/mongoose-url-type": "^1.0.9",
-    "@thxmike/mongoose-uuid-type": "^1.0.5",
+    "@thxmike/mongoose-custom": "^0.1.1",
     "bson": "^4.3.0",
-    "mongoose": "*",
     "mongoose-extend-schema": "git+https://github.com/thxmike/mongoose-extend-schema.git",
     "uuid": "^8.3.2"
   },

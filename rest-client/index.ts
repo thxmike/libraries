@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 import * as uuid from 'uuid';
 
-import { IRestClientService } from './irest-client-service';
+import { IRestClientService } from './iindex-service';
 
 export class RestClientService implements IRestClientService {
   private base_uri: string;

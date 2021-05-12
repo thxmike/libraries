@@ -1,7 +1,7 @@
 {
-  "name": "@thxmike/mongoose-base-schema",
-  "version": "0.0.24",
-  "description": "Sets up base schema for mongooose use",
+  "name": "@thxmike/redis-client",
+  "version": "0.0.2",
+  "description": "\"An abstraction for Redis operations\"",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
@@ -21,15 +21,13 @@
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "author": "Michael Rivera",
+  "author": "Rivera",
   "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^15.0.2",
-    "@types/uuid": "^8.3.0"
-  },
   "dependencies": {
-    "@thxmike/mongoose-custom": "^0.1.1",
-    "mongoose": "^5.12.7",
-    "uuid": "^8.3.2"
+    "@types/redis": "^2.8.28",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.2"
   }
 }

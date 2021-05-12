@@ -2,8 +2,8 @@
   "name": "@thxmike/rest-client",
   "version": "0.1.22",
   "description": "\"An abstraction for RESTful operations\"",
-  "main": "lib/rest-client-implementation.js",
-  "types": "lib/rest-client-implementation.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib"
@@ -13,11 +13,16 @@
     "prepare": "tsc && npm version patch",
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "author": "Rivera",
   "license": "ISC",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
   "dependencies": {
     "@thxmike/error-response": "0.1.2",
     "@thxmike/string-operations": "0.1.5",
@@ -25,10 +30,6 @@
     "@types/uuid": "^8.3.0",
     "node-fetch": "^2.6.1",
     "uuid": "^8.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thxmike/libraries.git"
   },
   "devDependencies": {
     "@types/node": "^14.14.33"
