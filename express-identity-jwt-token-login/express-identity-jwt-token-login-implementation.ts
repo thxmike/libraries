@@ -1,3 +1,5 @@
+import { RedisClientService } from '@thxmike/redis-client';
+
 import { ExpressIdentityJWTClaimsInspectorService } from './express-identity-jwt-claims-inspector-service.js';
 import { ExpressIdentityJWTTokenSigningService } from './express-identity-jwt-token-signing-service.js';
 
@@ -11,13 +13,16 @@ export class ExpressIdentityJWTTokenLoginService {
   private _express_identity_token_signing_service: ExpressIdentityJWTTokenSigningService;
   private _express_identity_token_claims_service: ExpressIdentityJWTClaimsInspectorService;
 
+  private _redis_client_service: RedisClientService | any = null;
+
   constructor(
     openid_configuration_uri: string,
     jkws_oauth_keyset_uri: string,
     introspection_uri: string = "",
     user_info_endpoint_uri: string,
     client_id: string,
-    client_secret: string
+    client_secret: string,
+    redis_client: RedisClientService | any = null
   ) {
     this._token_cache = [];
     /*
@@ -28,6 +33,10 @@ export class ExpressIdentityJWTTokenLoginService {
       client_secret
     );
     */
+
+    if(redis_client){
+      this._redis_client_service = redis_client;
+    }
     this._express_identity_token_signing_service = new ExpressIdentityJWTTokenSigningService(
       jkws_oauth_keyset_uri
     );
@@ -36,7 +45,7 @@ export class ExpressIdentityJWTTokenLoginService {
     );
   }
 
-  public authenticate(req: any, res: any, next: any) {
+  public async authenticate(req: any, res: any, next: any) {
     if (req.method === "OPTIONS") {
       //Pre-Flight from browser
       return next();
@@ -59,8 +68,8 @@ export class ExpressIdentityJWTTokenLoginService {
 
     let found_cached_token = false;
     let epoch_date_now = Date.now();
-
-    found_cached_token = this.check_token_cache(token, epoch_date_now);
+    
+    found_cached_token = await this.check_token_cache(token, epoch_date_now);
 
     if (found_cached_token) {
       return this.end_identity_check(next);
@@ -125,24 +134,37 @@ export class ExpressIdentityJWTTokenLoginService {
     }
   }
 
-  private check_token_cache(token: string, epoch_date_now: number) {
+  private async check_token_cache(token: string, epoch_date_now: number) {
+    
     let found = false;
-    let local_cache = this._token_cache;
     let ind = -1;
 
-    this._token_cache.some((cache_token: any, index: number) => {
-      if (cache_token.id === token && cache_token.threshold > epoch_date_now) {
+    if(this._redis_client_service){
+      let threshold = await this._redis_client_service.get(token);
+      if(threshold && (threshold > epoch_date_now)){
         found = true;
-        return found;
       }
-      if (cache_token.id === token && cache_token.threshold <= epoch_date_now) {
-        ind = index;
+      if(threshold && (threshold <= epoch_date_now)){
+        found = false;
+        await this._redis_client_service.delete(token);
       }
-    });
-    if (ind != -1) {
-      this._token_cache = local_cache.splice(ind, 1);
     }
-    return found;
+    else {
+      this._token_cache.some((cache_token: any, index: number) => {
+        if (cache_token.id === token && cache_token.threshold > epoch_date_now) {
+          found = true;
+          return Promise.resolve(found);
+        }
+        if (cache_token.id === token && cache_token.threshold <= epoch_date_now) {
+          ind = index;
+        }
+      });
+      if (ind != -1) {
+        this._token_cache.splice(ind, 1);
+      }
+    }
+    return Promise.resolve(found);
+    
   }
 
   private update_token_cache(token: string, expire_time: number) {

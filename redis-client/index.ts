@@ -11,6 +11,7 @@ export class RedisClientService implements IRedisClientService {
 
   private _get: any;
   private _set: any;
+  private _delete: any;
 
 
   constructor(host: string, database: string, port: 6379, options: any = { }) {
@@ -23,7 +24,7 @@ export class RedisClientService implements IRedisClientService {
     this._redis = redis.createClient(options);
     this._get = promisify(this._redis.get).bind(this._redis);
     this._set = promisify(this._redis.set).bind(this._redis);
-    
+    this._delete = promisify(this._redis.del).bind(this._redis)
   }
 
   public set(key: any, value: any): Promise<any>{
@@ -34,4 +35,8 @@ export class RedisClientService implements IRedisClientService {
     return this._get(key); 
   }
   
+  public delete(key: any): Promise<any> {
+    return this._delete(key);
+  }
+
 }
