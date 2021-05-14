@@ -30,11 +30,7 @@ export abstract class MongooseBaseDirector implements IMongooseBaseDirector {
     throw new Error("Base Method director - This method must have an override. This must return all of the model managers");
   }
 
-  setup_schemas() {
-    throw new Error("Base Method setup_schemas - This method must have an override. This must define all of your schema definitions");
-  }
+  abstract setup_schemas(): any;
 
-  setup_managers(schemas: any) {
-    throw new Error("Base Method setup_managers - This method must have an override. This must setup all of the models for each schema");
-  }
+  abstract setup_managers(schemas: any): void;
 }

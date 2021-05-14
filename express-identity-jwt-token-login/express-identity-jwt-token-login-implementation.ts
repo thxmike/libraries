@@ -107,8 +107,10 @@ export class ExpressIdentityJWTTokenLoginService {
           let expire_time = claims.exp * 1000;
           //Service Account
           if (claims.type && claims.type === "service") {
-            this.update_token_cache(token, expire_time);
-            return this.end_identity_check(next);
+            return this.update_token_cache(token, expire_time).then(() =>{
+              return this.end_identity_check(next);
+            })
+            
           } //User
 
           let id = claims["Object GUID"];
@@ -116,8 +118,9 @@ export class ExpressIdentityJWTTokenLoginService {
           if (!id) {
             return Promise.reject("Missing Claim");
           }
-          this.update_token_cache(token, expire_time);
-          return this.end_identity_check(next);
+          return this.update_token_cache(token, expire_time).then(() => {
+            return this.end_identity_check(next);
+          })
         })
         .catch((error: any) => {
           //let response_code = error.trim().substring(0,3);
@@ -141,6 +144,7 @@ export class ExpressIdentityJWTTokenLoginService {
 
     if(this._redis_client_service){
       let threshold = await this._redis_client_service.get(token);
+      threshold = +threshold;
       if(threshold && (threshold > epoch_date_now)){
         found = true;
       }
@@ -167,22 +171,27 @@ export class ExpressIdentityJWTTokenLoginService {
     
   }
 
-  private update_token_cache(token: string, expire_time: number) {
+  private async update_token_cache(token: string, expire_time: number) {
     let found_cached_token = false;
 
-    this._token_cache.some((cache_token: any) => {
-      if (cache_token.id === token) {
-        cache_token.threshold = expire_time;
-        return found_cached_token;
-      }
-    });
-
-    if (!found_cached_token) {
-      let id = token;
-      let threshold = expire_time;
-
-      this._token_cache.push({ id, threshold });
+    if (this._redis_client_service) {
+      await this._redis_client_service.set(token, expire_time);
     }
+    else {
+        this._token_cache.some((cache_token: any, index: number) => {
+            if (cache_token.id === token) {
+                this._token_cache[index].threshold = expire_time;
+                return Promise.resolve();
+            }
+        });
+        if (!found_cached_token) {
+          let id = token;
+          let threshold = expire_time;
+    
+          this._token_cache.push({ id, threshold });
+        }
+    }
+    return Promise.resolve();
   }
 
   private end_identity_check(next: any) {

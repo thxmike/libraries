@@ -1,5 +1,5 @@
 import { mongoose } from '@thxmike/mongoose-custom';
-import { parse, stringify, v4 } from 'uuid';
+import uuid from 'uuid-mongodb';
 
 import { IMongooseBaseSchema } from './iindex-service';
 
@@ -11,7 +11,7 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
     return this._mongoose;
   }
 
-  constructor(obj: any, options: any) {
+  constructor(obj: any, options: any, custom_mongoose: any) {
 
     let default_options = {
       "id": false,
@@ -40,13 +40,12 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
 
     super(obj, default_options);
    
-    this._mongoose = mongoose;
+    this._mongoose = custom_mongoose;
 
     let default_schema_definition = {
       "_id": {
         "type": this._mongoose.SchemaTypes.UUID,
-        "default": v4,
-        "required": true
+        "default": uuid.v4
       },
       "code": {
         "type": String,
@@ -91,11 +90,11 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
     this.add(default_schema_definition);
 
     this.virtual("id").get(function() {
-      return stringify(this._id);
+      return uuid.from(this._id).toString();
     });
 
     this.virtual("id").set(function(uuid_string: string) {
-      this._id = parse(uuid_string);
+      this._id = uuid.from(uuid_string);
     });
   } 
 }

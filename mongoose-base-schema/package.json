@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-base-schema",
-  "version": "0.0.24",
+  "version": "0.0.29",
   "description": "Sets up base schema for mongooose use",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,12 +24,11 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^15.0.2",
+    "@types/node": "^15.0.3",
     "@types/uuid": "^8.3.0"
   },
   "dependencies": {
-    "@thxmike/mongoose-custom": "^0.1.1",
-    "mongoose": "^5.12.7",
-    "uuid": "^8.3.2"
+    "@thxmike/mongoose-custom": "^0.1.4",
+    "uuid-mongodb": "^2.4.3"
   }
 }

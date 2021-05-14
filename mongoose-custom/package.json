@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-custom",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "The extends the mongoose library to support some new types",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -25,7 +25,7 @@
   "license": "ISC",
   "dependencies": {
     "@thxmike/mongoose-url-type": "^1.0.9",
-    "@thxmike/mongoose-uuid-type": "^1.0.13",
-    "mongoose": "^5.12.7"
+    "@thxmike/mongoose-uuid-type": "^1.0.14",
+    "mongoose": "^5.12.9"
   }
 }
