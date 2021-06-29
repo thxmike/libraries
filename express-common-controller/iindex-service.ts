@@ -8,4 +8,8 @@ export interface ICommonController {
   patch_instance_request(req: any, res: any, next: any): void;
 
   delete_instance_request(req: any, res: any, next: any): void;
+
+  determine_error_status(error: any): number
+
+  setup_filter(headers: any, query?: any): any;
 }

@@ -47,6 +47,10 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
         "type": this._mongoose.SchemaTypes.UUID,
         "default": uuid.v4
       },
+      "context_id": {
+        "type": this._mongoose.SchemaTypes.UUID,
+        "required": true
+      },
       "code": {
         "type": String,
         "required": true,

@@ -39,7 +39,7 @@ export class CommonModelManager implements ICommonModelManager {
     return this._model.find(filter).countDocuments();
   }
 
-  get_instance_operation_by_id(id: string) {
+  get_instance_operation_by_id(id: string, filter: any = {}) {
     return this._model
       .findById(id)
       //.lean()
@@ -59,11 +59,10 @@ export class CommonModelManager implements ICommonModelManager {
       });
   }
 
-  get_instance_operation_by_code(code: string) {
+  get_instance_operation_by_code(code: string, filter: any = {}) {
+    filter = { ...filter, ...{ code } } 
     return this._model
-      .find({
-        code
-      })
+      .find(filter)
       .lean()
       .exec()
       .then((doc: any) => {
@@ -74,9 +73,10 @@ export class CommonModelManager implements ICommonModelManager {
       });
   }
 
-  post_operation(data: any) {
+  post_operation(data: any, filter: any = {}) {
+    filter = {...filter, ...this.default_filter(data) }
     return this._model
-      .findOne(this.default_filter(data))
+      .findOne(filter)
       .exec()
       .then((instance: any) => {
         return this.check_if_exists(instance, data);

@@ -8,8 +8,8 @@
     "strict": true,
     "declaration": true,
     "outDir": "./lib",
-    "types": ["node" ],
+    "types": ["node"],
     "typeRoots": ["../node_modules/@types", "../types"]
   },
-  "exclude": ["tests", "dist", "node_modules", "lib"]
+  "exclude": ["tests", "dist", "node_modules", "lib", "deprecated"]
 }

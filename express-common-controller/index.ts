@@ -7,7 +7,7 @@ export class CommonController extends BaseController implements ICommonControlle
 
   public get_aggregate_request(req: any, res: any, next: any) {
 
-    let filter = this._check_filter(req);
+    let filter = this.setup_filter(req.headers, req.query);
 
     if (this.has_parent) {
       let parts = req.baseUrl.split("/");
@@ -42,29 +42,33 @@ export class CommonController extends BaseController implements ICommonControlle
     });
   }
 
-
-  _check_filter(req: any){
+  public setup_filter(headers: any, query?: any): any{
     let filter = {};
-    if(req.query.filter) {
-      filter = req.query.filter;
+    if(headers && headers.context_id){
+      let context_id = headers.context_id;
+      filter = {"context_id": context_id };
     }
 
-    if (typeof filter === "string") {
-      filter = JSON.parse(filter);
+    if(query && query.filter){
+      filter = { ...filter, ...JSON.parse(query.filter) }
     }
+    
     return filter;
   }
 
 
   public post_aggregate_request(req: any, res: any, next: any) {
 
+    let filter = this.setup_filter(req.headers, req.query);
     if (this.has_parent) {
       let parts = req.baseUrl.split("/");
 
       req.body[`${this._parent.alternate_name}_id`] = parts[parts.length - 1];
     }
 
-    this.data_service.post_operation(req.body).then((response: any) => {
+    this.check_payload(res, req.body).then(() => {
+      this.data_service.post_operation(req.body)
+    }).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return  this._send_error(res, req, err, this.constructor.name, "post_aggregate_request");
@@ -83,10 +87,11 @@ export class CommonController extends BaseController implements ICommonControlle
   }
 
   public patch_instance_request(req: any, res: any, next: any) {
-
     let id = req.params[`${this.alternate_name}_id`];
 
-    this.data_service.patch_operation(id, req.body).then((response: any) => {
+    this.check_payload(res, req.body).then(() => {
+      return this.data_service.patch_operation(id, req.body);
+    }).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return this._send_error(res, req, err, this.constructor.name, "patch_instance_request");
@@ -96,8 +101,9 @@ export class CommonController extends BaseController implements ICommonControlle
   public delete_instance_request(req: any, res: any, next: any) {
 
     let id = req.params[`${this.alternate_name}_id`];
-
-    this.data_service.delete_operation(id, req.body).then((response: any) => {
+    this.check_payload(res, req.body).then(() => {
+      this.data_service.delete_operation(id, req.body)
+    }).then((response: any) => {
       res.status(response.status).json(response.message);
     }).catch((err: any) => {
       return this._send_error(res, req, err, this.constructor.name, "delete_instance_request");
@@ -124,5 +130,53 @@ export class CommonController extends BaseController implements ICommonControlle
     if(args[1]){
       res.header("per_page", args[1]);
     }
+  }
+
+  private async check_payload(res: any, body: any){
+    if(!body || this.is_empty(body)){
+      return Promise.reject("This requires a payload");
+    }
+    if(!this.is_JSON(JSON.stringify(body))){
+      return Promise.reject("This request requires a valid JSON payload");
+    }
+    return Promise.resolve();
+  }
+
+  private is_empty(object: any){
+    
+    return !Object.keys(object).length;
+  }
+
+  private is_JSON(text: any) {
+    if (typeof text !== "string") {
+        return false;
+    }
+    try {
+        JSON.parse(text);
+        return true;
+    } catch (error) {
+        return false;
+    }
+  }
+
+  public determine_error_status(error: any): number {
+    
+    let status_code = 400;
+    if (error) {
+      if(error.message === "This order has already been requested"){
+        status_code = 409;
+      }
+      else if(error.message === "Request is malformed"){
+        status_code = 400;
+      }
+      else if (error.message === "This request requires a valid JSON payload"){
+        status_code = 400;
+      }
+      else if (error.message === "This requires a payload"){
+        status_code = 400;
+      }
+      // TODO to add logic for error status
+    }
+    return status_code;
   }
 }

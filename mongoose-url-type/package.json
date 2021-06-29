@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-url-type",
-  "version": "1.0.9",
+  "version": "1.0.13",
   "description": "A url field-type for Mongoose schemas. This is a fork of https://github.com/konsumer/mongoose-type-url",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -25,21 +25,24 @@
   "license": "MIT",
   "homepage": "https://github.com/thxmike/mongoose-type-url",
   "dependencies": {
+    "@types/node": "^15.12.5",
     "cryptiles": "^4.1.2",
-    "normalize-url": "^6.0.0",
-    "@types/node": "^15.0.2"
+    "mongoose": "^5.13.0",
+    "normalize-url": "^6.1.0"
   },
   "devDependencies": {
-    "@types/mongoose": "^5.10.5",
-    "jest": "^26.6.3",
+    "jest": "^27.0.6",
     "mockingoose": "^2.15.2",
-    "mongoose": "^5.10.7",
-    "release-it": "^14.6.1"
+    "release-it": "^14.10.0"
   },
-  "peerDependencies": {
-    "mongoose": "*"
+  "engines": {
+    "node": ">=10.0.0"
   },
-  "jest": {
-    "testEnvironment": "node"
-  }
+  "keywords": [
+    "mongoose",
+    "uuid",
+    "schema",
+    "type",
+    "binary"
+  ]
 }

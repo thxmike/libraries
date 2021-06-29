@@ -11,7 +11,9 @@ export class Url extends mongoose.SchemaType {
 
     constructor(path: any, options: any) {
       super(path, options, 'Url');
-      this.validate(function (val: any) { return this.validateUrl(val, options) }, options.message || this.defaults.message || 'url is invalid')
+      super.validate(function (val: any) { 
+            return this.validateUrl(val, options) 
+        }, options.message || this.defaults.message || 'url is invalid');
     }
   
     // `cast()` takes a parameter that can be anything. You need to
