@@ -1,0 +1,49 @@
+{
+  "name": "@thxmike/mongoose-uuid-type",
+  "version": "1.0.19",
+  "description": "UUID schema type for mongoose. This is an updated version of https://github.com/niahmiah/mongoose-uuid",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/thxmike/mongoose-type-uuid",
+  "dependencies": {
+    "@types/node": "^15.12.5",
+    "bson": "^4.4.0",
+    "debug": "^4.3.1",
+    "mongoose": "^5.13.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "coveralls": "^3.1.1",
+    "istanbul": "^0.3.20",
+    "mocha": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "keywords": [
+    "mongoose",
+    "uuid",
+    "schema",
+    "type",
+    "binary"
+  ]
+}
