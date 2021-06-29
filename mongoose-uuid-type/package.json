@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-uuid-type",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "UUID schema type for mongoose. This is an updated version of https://github.com/niahmiah/mongoose-uuid",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
