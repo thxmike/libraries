@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-root-controller",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "\"Root Controller to be use in API, provides health and list endpoints\"",
   "main": "lib/root-controller-implementation.js",
   "types": "lib/root-controller-implementation.d.ts",
@@ -24,13 +24,14 @@
   "license": "ISC",
   "dependencies": {
     "@thxmike/express-ping": "^1.4.3",
+    "@types/express-serve-static-core": "^4.17.22",
     "express": "^4.17.1",
     "express-list-endpoints": "^5.0.0",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@types/express-list-endpoints": "^4.0.1",
-    "@types/node": "^14.14.35",
+    "@types/node": "^15.12.5",
     "@types/swagger-ui-express": "^4.1.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-route-logger",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "\"Provides route logging services as Express Middleware\"",
   "main": "lib/express-route-logging-implementation.js",
   "types": "lib/express-route-logging-implementation.d.ts",
@@ -23,6 +23,6 @@
   "author": "Michael Rivera",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^14.14.31"
+    "@types/node": "^15.12.5"
   }
 }
