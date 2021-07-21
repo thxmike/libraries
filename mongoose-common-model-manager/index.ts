@@ -292,6 +292,9 @@ export class CommonModelManager implements ICommonModelManager {
     if (data.timestamps && ent.timestamps.deleted !== data.timestamps.deleted) {
       ent.timestamps.deleted = data.timestamps.deleted;
     }
+    if (data.context_id) {
+      ent.context_id = data.context_id;
+    }
   }
 
   check_sub_documents(instance: any) {

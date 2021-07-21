@@ -3,6 +3,7 @@ import uuid from 'uuid-mongodb';
 
 import { IMongooseBaseSchema } from './iindex-service';
 
+const { UUID, ObjectId } = mongoose.Schema.Types;
 export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBaseSchema {
   
   private _mongoose: any;
@@ -12,7 +13,7 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
   }
 
   constructor(obj: any, options: any, custom_mongoose: any) {
-
+    uuid.mode("relaxed");
     let default_options = {
       "id": false,
       "toObject": {
@@ -44,11 +45,16 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
 
     let default_schema_definition = {
       "_id": {
-        "type": this._mongoose.SchemaTypes.UUID,
-        "default": uuid.v4
+        "type": UUID,
+        "default": uuid.v4,
+        /*"get": (buffer: any) => stringify(buffer),
+        "set": (string: any) => {
+            const buffer = parse(string);
+            return new this._mongoose.SchemaTypes.Types.Buffer(buffer).toObject(0x03);
+        }*/
       },
       "context_id": {
-        "type": this._mongoose.SchemaTypes.UUID,
+        "type": UUID,
         "required": true
       },
       "code": {
@@ -81,9 +87,9 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
         }
       },
       "nonce": {
-        "type": this._mongoose.SchemaTypes.ObjectId,
+        "type": ObjectId,
         "required": true,
-        "default": mongoose.Types.ObjectId()
+        "default": this._mongoose.Types.ObjectId()
       },
       "__v": {
         "type": Number,
@@ -94,7 +100,7 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
     this.add(default_schema_definition);
 
     this.virtual("id").get(function() {
-      return uuid.from(this._id).toString();
+      return uuid.from(this._id);
     });
 
     this.virtual("id").set(function(uuid_string: string) {

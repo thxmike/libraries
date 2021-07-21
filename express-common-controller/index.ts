@@ -140,7 +140,7 @@ export class CommonController
     let id = req.params[`${this.alternate_name}_id`];
     this.check_payload(res, req.body)
       .then(() => {
-        this.data_service.delete_operation(id, req.body);
+        return this.data_service.delete_operation(id, req.body);
       })
       .then((response: any) => {
         res.status(response.status).json(response.message);

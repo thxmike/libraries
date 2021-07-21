@@ -16,7 +16,7 @@ export abstract class MongooseBaseDirector implements IMongooseBaseDirector {
 
   constructor(mongoose: any) {
 
-    if (!mongoose.Types.UUID) {
+    if (!mongoose.SchemaTypes.UUID) {
       console.log("UUID's are unable to be used with this instance of MongoDB");
     }
     this._mongoose = mongoose;

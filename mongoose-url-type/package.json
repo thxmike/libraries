@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-url-type",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "A url field-type for Mongoose schemas. This is a fork of https://github.com/konsumer/mongoose-type-url",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

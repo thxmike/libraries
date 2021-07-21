@@ -1,8 +1,8 @@
 import { MongooseUrl } from '@thxmike/mongoose-url-type';
-import { MongooseUUID } from '@thxmike/mongoose-uuid-type';
+import { MongooseUuid } from '@thxmike/mongoose-uuid-type';
 import mongoose from 'mongoose';
 
-MongooseUUID(mongoose);
-MongooseUrl(mongoose);
+let new_mongoose = MongooseUuid(mongoose);
+let newer_mongoose = MongooseUrl(new_mongoose);
 
-export {mongoose};
+export { newer_mongoose as mongoose };
