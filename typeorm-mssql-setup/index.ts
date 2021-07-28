@@ -28,7 +28,10 @@ export class TypeOrmMssqlSetupService implements ITypeOrmMssqlSetupService {
       username: this._user_name,
       password: this._password,
       database: this._database,
-      extra: true,
+      extra: {
+        validateConnection: false,
+        trustServerCertificate: true
+      },
       options: {
           isolation: "READ_UNCOMMITTED"
       },
