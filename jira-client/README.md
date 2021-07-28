@@ -1,4 +1,4 @@
-# ulti-jira-client
+# jira-client
 
 A simple client to interact with Jira
 

@@ -1,4 +1,4 @@
-# ulti-mongo-client
+# mongo-client
 
 A simple client to get information out of mongo
 

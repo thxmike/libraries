@@ -1,4 +1,4 @@
-# ulti-ldap-authn-client
+# ldap-authn-client
 
 ## Purpose
 
@@ -10,10 +10,10 @@ Example:
 
 ```javascript
     const ldap_client_service = new AuthNService(
-      'ldaps://us.corp:636',
-      'dc=us,dc=corp',
+      'ldaps://<domain>:636',
+      'dc=<dn1>,dc=<dn2>',
       'CN=svc_ldap_search,OU=Non-Interactive Service Accounts,OU=Application and Service Accounts,DC=us,DC=corp',
-      '*******', // It is suggested that this is stored in UltiSafe/Vault
+      '*******',
       30000
     );
     ldap_client_service.authenticate_user('login_user_name', 'login_password')
@@ -24,9 +24,9 @@ Details
 ### Public
 
 - ctor(ldap_uri, search_dn, service_account_dn, password, cache_threshold)  - Initializes a new instance of an ldap client
-  - ldap_uri - required - must be in uri format. example. - ldaps://us.corp:636
+  - ldap_uri - required - must be in uri format. example. - ldaps://<domain>:636
   - search_dn - required - The starting search dn location for your user base. This must be in ldap dn format - example - dc=us,dc=corp
-  - service_account_dn - Since us.corp's active directory requires an account this is the service account in ldap dn format to search the ldap system for user dn's. This is required to authenticate a user.. example - CN=svc_ldap_search,OU=Non-Interactive Service Accounts,OU=Application and Service Accounts,DC=us,DC=corp
+  - service_account_dn - Since active directory requires an account this is the service account in ldap dn format to search the ldap system for user dn's. This is required to authenticate a user.. example - CN=svc_ldap_search,OU=Non-Interactive Service Accounts,OU=Application and Service Accounts,DC=us,DC=corp
   - password - The password associated to the service account
   - cache_threshold - Since LDAP lookups are slow, this module has a temporary cache to store LDAP user dn's. This way when concucurrent requests after the initial login is complete, the lookup of the user will be in this temporary cache
   - Returns error or nothing.

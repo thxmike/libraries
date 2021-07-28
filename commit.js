@@ -1,6 +1,6 @@
 const Promise = require("bluebird");
 const Plan = require("./plan.json");
-const CommandService = require("./ulti-command/lib/command_service");
+const CommandService = require("./command/lib/command_service");
 
 let update = (folder_array, index, res) => {
 

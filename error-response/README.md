@@ -1,4 +1,4 @@
-# ulti-error-response
+# error-response
 
 Provides error parsing and identification in a response
 
