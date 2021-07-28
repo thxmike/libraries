@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/typeorm-mssql-setup",
-  "version": "0.0.14",
+  "version": "0.0.17",
   "description": "This sets up the initial configuration for typeorm",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/thxmike/libraries#readme",
   "dependencies": {
-    "mssql": "^6.3.1",
+    "mssql": "^7.1.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.31"
+    "typeorm": "^0.2.34"
   }
 }
