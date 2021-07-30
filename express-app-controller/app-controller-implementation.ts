@@ -1,4 +1,5 @@
 import compression from 'compression';
+import cors from 'cors';
 import express from 'express';
 
 import { IAppControllerService } from './iapp-controller-service';
@@ -6,11 +7,15 @@ import { IAppControllerService } from './iapp-controller-service';
 export class AppControllerService implements IAppControllerService {
 
   private _app: any;
-  private _whitelist: any;
-  private _allowed_headers: any;
-  private _allowed_methods: any;
   private _json_options: any;
   private _url_encoded_options: any;
+  private _cors_options: any =  {
+    origin: [],
+    methods: [],
+    allowedHeaders: [],
+    credentials: true,
+    preflightContinue: true
+  }
 
   constructor(
     app = express(),
@@ -22,9 +27,9 @@ export class AppControllerService implements IAppControllerService {
     url_encoded_options: any = {}
   ) {
     this._app = app;
-    this._whitelist = allowed_domains;
-    this._allowed_methods = allowed_methods;
-    this._allowed_headers = allowed_headers;
+    this._cors_options.origin = allowed_domains;
+    this._cors_options.allowedMethods = allowed_methods;
+    this._cors_options.allowedHeaders = allowed_headers;
     json_options.limit = "5mb";
     this._json_options = json_options;
     url_encoded_options.extended = true;
@@ -47,37 +52,11 @@ export class AppControllerService implements IAppControllerService {
     this._app.use(compression());
     this._app.use(express.urlencoded(this._url_encoded_options));
     this._app.use(express.json(this._json_options));
-
-    this._app.use((err: any, req: any, res: any, next: any) => {
-
-      if(err){
-        console.error(err.stack);
-        res.status(err.status).send(`The request is malformed ${err.message}`);
-        return next();
-      }
-      let origin = req.get("origin");
-
-      if (origin) {
-        if (this.is_whitelisted(origin)) {
-          this.set_cors_headers(origin, req.method, res);
-        } else {
-          return res.status(403).json({
-            error: "Not a valid requestor",
-          });
-        }
-      }
-
-      AppControllerService.set_default_security_headers(res);
-      this._app.on("error", (error: any) => {
-        return res.status(403).json({
-          error: `Internal Server Error ${error}`,
-        });
-      });
-      return next();
-    });
+    this._app.use(cors(this._cors_options));
+    this._app.use(this.set_default_security_headers);
   }
 
-  private static set_default_security_headers(res: any) {
+  private set_default_security_headers(req: any, res: any, next: any) {
     res.setHeader("X-XSS-Protection", "1; mode=block");
     res.setHeader(
       "Strict-Transport-Security",
@@ -85,40 +64,6 @@ export class AppControllerService implements IAppControllerService {
     );
     res.setHeader("X-Frame-Options", "deny");
     res.setHeader("X-Content-Type-Options", "nosniff");
-  }
-
-  private set_cors_headers(origin: any, verb: any, res: any) {
-    if (verb === "OPTIONS") {
-      AppControllerService.set_cors_origin(res, origin);
-      this.set_cors_additional_headers(res);
-    } else if (verb !== "OPTIONS") {
-      AppControllerService.set_cors_origin(res, origin);
-    }
-  }
-
-  private static set_cors_origin(res: any, domain: string) {
-    res.setHeader("Access-Control-Allow-Origin", domain);
-  }
-
-  private set_cors_additional_headers(res: any) {
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      this._allowed_headers.join(", ")
-    );
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      this._allowed_methods.join(", ")
-    );
-    res.setHeader("Access-Control-Allow-Credentials", true);
-  }
-
-  private is_whitelisted(request_origin: any) {
-    let test = false;
-    let origin_index = this._whitelist.indexOf(request_origin);
-
-    if (origin_index !== -1) {
-      test = true;
-    }
-    return test;
+    next();
   }
 }
