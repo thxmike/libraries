@@ -22,6 +22,7 @@ export class AppControllerService implements IAppControllerService {
     allowed_domains = ["https://myclient.somedomain.com"],
     allowed_methods = ["GET"],
     allowed_headers = ["Content-Type"],
+    exposed_headers = ["Content-Type"],
     logger: any = {},
     json_options: any = {},
     url_encoded_options: any = {}
@@ -30,6 +31,7 @@ export class AppControllerService implements IAppControllerService {
     this._cors_options.origin = allowed_domains;
     this._cors_options.allowedMethods = allowed_methods;
     this._cors_options.allowedHeaders = allowed_headers;
+    this._cors_options.exposedHeaders = exposed_headers;
     json_options.limit = "5mb";
     this._json_options = json_options;
     url_encoded_options.extended = true;
