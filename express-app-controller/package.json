@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-app-controller",
-  "version": "0.1.14",
+  "version": "0.1.22",
   "description": "\"Default Express App Route Settings\"",
   "main": "lib/app-controller-implementation.js",
   "types": "lib/app-controller-implementation.d.ts",
@@ -18,7 +18,8 @@
     "url": "https://github.com/thxmike/libraries.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "author": "Michael Rivera",
   "license": "ISC",
