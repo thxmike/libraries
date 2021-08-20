@@ -29,7 +29,7 @@ export class AppControllerService implements IAppControllerService {
   ) {
     this._app = app;
     this._cors_options.origin = allowed_domains;
-    this._cors_options.allowedMethods = allowed_methods;
+    this._cors_options.methods = allowed_methods;
     this._cors_options.allowedHeaders = allowed_headers;
     this._cors_options.exposedHeaders = exposed_headers;
     json_options.limit = "5mb";
