@@ -14,8 +14,6 @@ export class MongooseSetupService implements IMongooseSetupService {
 
     this._mongoose = mongoose;
 
-    const db = this._mongoose.connection;
-
     if (promise) { //Setup custom promise library of choice
       this._mongoose.Promise = promise;
     }
@@ -24,7 +22,9 @@ export class MongooseSetupService implements IMongooseSetupService {
 
     this._director = new ModelDirector(this._mongoose).director;
 
-    this.connect(uri, options, db, debug);
+    this._mongoose.set("debug", debug);
+
+    this.connect(uri, options);
   }
 
   static define_options(app_name: string, username?: string, password?: string, certificate?: string, ca?: string) {
@@ -56,13 +56,11 @@ export class MongooseSetupService implements IMongooseSetupService {
     return options;
   }
 
-  connect(uri: string, options: any, db: any, debug: any) {
-
-    this._mongoose.set("debug", debug);
+  connect(uri: string, options: any) {
     this._mongoose.connect(uri, options)
       .then(() => {
+        this.listen();
         console.log("Mongoose is Ready");
-        this.listen(db);
       })
       .catch((error: any) => {
         throw new Error(error);
@@ -77,46 +75,39 @@ export class MongooseSetupService implements IMongooseSetupService {
     return this._director;
   }
 
-  listen(db: any) {
-    db.on("error", (error: any) => {
+  listen() {
+    this._mongoose.connection.on("error", (error: any) => {
       console.error(`Mongoose connection error: ${error}`);
-      db.close();
-      this._mongoose.connection.close();
     });
 
-    db.on("open", () => {
+    this._mongoose.connection.on("open", () => {
       console.log("Mongoose default connection is open");
     });
 
-    db.on("close", () => {
+    this._mongoose.connection.on("close", () => {
       console.log("Mongoose default connection is open");
-      db.close();
-      this._mongoose.connection.close();
     });
 
-    db.on("connected", () => {
+    this._mongoose.connection.on("connected", () => {
       console.log("Mongoose default connection connected");
     });
 
-    db.on("connecting", () => {
+    this._mongoose.connection.on("connecting", () => {
       console.log("Mongoose default connection connecting");
     });
 
-    db.on("disconnected", () => {
+    this._mongoose.connection.on("disconnected", () => {
       console.log("Mongoose default connection disconnected");
-      db.close();
-      this._mongoose.connection.close();
     });
 
-    db.on("reconnect", () => {
+    this._mongoose.connection.on("reconnect", () => {
       console.log("Mongoose default connection reconnected");
     });
 
     //If the Node process ends, close the Mongoose connection
     process.on("SIGINT", () => {
-      db.close(() => {
+      this._mongoose.connection.close(() => {
         console.log("Mongoose default connection disconnected through app termination");
-        this._mongoose.connection.close();
         process.exit(0);
       });
     });

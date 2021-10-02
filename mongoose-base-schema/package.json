@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-base-schema",
-  "version": "0.1.28",
+  "version": "0.1.30",
   "description": "Sets up base schema for mongooose use",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@thxmike/mongoose-custom": "^0.1.46",
+    "@thxmike/type-conversion": "^0.1.5",
     "uuid-mongodb": "^2.4.4"
   }
 }

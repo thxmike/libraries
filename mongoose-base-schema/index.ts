@@ -1,4 +1,5 @@
 import { mongoose } from '@thxmike/mongoose-custom';
+import { TypeConversionService } from '@thxmike/type-conversion';
 import uuid from 'uuid-mongodb';
 
 import { IMongooseBaseSchema } from './iindex-service';
@@ -44,15 +45,6 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
     this._mongoose = custom_mongoose;
 
     let default_schema_definition = {
-      "_id": {
-        "type": UUID,
-        "default": uuid.v4,
-        /*"get": (buffer: any) => stringify(buffer),
-        "set": (string: any) => {
-            const buffer = parse(string);
-            return new this._mongoose.SchemaTypes.Types.Buffer(buffer).toObject(0x03);
-        }*/
-      },
       "context_id": {
         "type": UUID,
         "required": true
@@ -90,21 +82,15 @@ export class MongooseBaseSchema extends mongoose.Schema implements IMongooseBase
         "type": ObjectId,
         "required": true,
         "default": this._mongoose.Types.ObjectId()
-      },
-      "__v": {
-        "type": Number,
-        "select": false
       }
     };
 
     this.add(default_schema_definition);
 
     this.virtual("id").get(function() {
-      return uuid.from(this._id);
-    });
-
-    this.virtual("id").set(function(uuid_string: string) {
-      this._id = uuid.from(uuid_string);
+      let str = this._id.toString();
+      let myid = TypeConversionService.convert_objectid_to_uuid(str, true);
+      return uuid.from(myid);
     });
   } 
 }

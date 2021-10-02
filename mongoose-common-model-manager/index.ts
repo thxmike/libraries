@@ -40,8 +40,9 @@ export class CommonModelManager implements ICommonModelManager {
   }
 
   get_instance_operation_by_id(id: string, filter: any = {}) {
+    let obj_id = id.replace(/-/g, '').slice(8);
     return this._model
-      .findById(id)
+      .findById(obj_id)
       //.lean()
       .exec()
       .then((doc: any) => {
@@ -99,11 +100,12 @@ export class CommonModelManager implements ICommonModelManager {
   }
 
   patch_operation(id: string, request_data: any) {
+    let obj_id = id.replace(/-/g, '').slice(8);
     return this._model
-      .findById(id)
+      .findById(obj_id)
       .exec()
       .then((instance: any) => {
-        return this.check_patch_data(id, request_data, instance);
+        return this.check_patch_data(obj_id, request_data, instance);
       })
       .then((instance: any) => {
         return CommonModelManager.promised_message(
@@ -117,10 +119,11 @@ export class CommonModelManager implements ICommonModelManager {
   }
 
   delete_operation(id: string, data: any, is_soft: boolean = true) {
+    let obj_id = id.replace(/-/g, '').slice(8);
     if (is_soft) {
-      return this.soft_delete(id, data);
+      return this.soft_delete(obj_id, data);
     }
-    return this.hard_delete(id, data);
+    return this.hard_delete(obj_id, data);
   }
 
   soft_delete(id: string, data: any) {
