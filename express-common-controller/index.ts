@@ -13,14 +13,13 @@ export class CommonController
     if (this.has_parent) {
       let parts = req.baseUrl.split("/");
       let parent_id = `${this._parent.alternate_name}_id`;
-
-      let item = { [parent_id]: `${parts[parts.length - 1]}` };
-
+      let val = parts[parts.length - 1].replace(/-/g, '').slice(8);
+      let item = { [parent_id]: `${val}` };
       filter = {
-        ...filter,
-        ...item,
+          ...filter,
+          ...item,
       };
-    }
+  }
     let count = 0;
 
     req.query.filter = filter;
