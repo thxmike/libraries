@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/configuration",
-  "version": "0.2.8",
+  "version": "0.2.10",
   "description": "Configuration Service used to extend and merge NodeJS Configurations",
   "main": "lib/configuration-implementation.js",
   "types": "lib/configuration-implementation.d.ts",

@@ -100,6 +100,11 @@ export class ConfigurationService implements IConfigurationService {
   public apply_azure_vault_overrides(
     config = this._configuration
   ): Promise<any> {
+    
+    if (this._environment_variables.AZURE_KEY_STORE_URI &&
+      this._environment_variables.AZURE_CLIENT_ID &&
+      this._environment_variables.AZURE_CLIENT_SECRET &&
+      this._environment_variables.AZURE_TENANT_ID) {
     return this.check_azure_vault()
       .then(() => {
         return this._vault_service.list();
@@ -110,6 +115,10 @@ export class ConfigurationService implements IConfigurationService {
           return this.apply_azure_vault_override(config, resolve);
         });
       });
+    } else {
+      console.log("message: \"Environment variables AZURE_KEY_STORE_URI, AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET are not setup. Skipping Vault Overrides.. Continuing")
+      return Promise.resolve();
+    }
   }
 
   private async apply_azure_vault_override(
