@@ -155,7 +155,7 @@ export class CommonController
       });
   }
 
-  private _send_error(
+  public _send_error(
     res: any,
     req: any,
     err: any,
@@ -176,7 +176,7 @@ export class CommonController
     return Promise.resolve();
   }
 
-  private _setup_header(args: any, res: any, response: any) {
+  public _setup_header(args: any, res: any, response: any) {
     if (args[0] !== null) {
       res.header("page", args[0]);
     }
@@ -185,7 +185,7 @@ export class CommonController
     }
   }
 
-  private async check_payload(res: any, body: any) {
+  public async check_payload(res: any, body: any) {
     if (!body || this.is_empty(body)) {
       return Promise.reject("This requires a payload");
     }

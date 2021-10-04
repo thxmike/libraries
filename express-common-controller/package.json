@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/express-common-controller",
-  "version": "0.1.18",
+  "version": "0.1.20",
   "description": "This is a common controller that can be used as a starting point for express.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
