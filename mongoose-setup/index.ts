@@ -1,5 +1,9 @@
 import { mongoose } from '@thxmike/mongoose-custom';
 
+import multer from "multer";
+import * as crypto from "crypto";
+import { GridFsStorage } from "multer-gridfs-storage";
+
 import { IMongooseSetupService } from './iindex-service.js';
 
 //Setup default with native ES6 Promise Library
@@ -9,6 +13,9 @@ export class MongooseSetupService implements IMongooseSetupService {
 
   private _mongoose: any;
   private _director: any;
+  private multi_part: any;
+  private gfs: any;
+  private uri: string;
 
   constructor(ModelDirector: any, uri = "mongodb://localhost:27017/test", debug = false, username = '', password = '', certificate = '', ca = '', app_name = "Custom Application", promise = null) {
 
@@ -18,13 +25,29 @@ export class MongooseSetupService implements IMongooseSetupService {
       this._mongoose.Promise = promise;
     }
 
+    this.uri = uri;
+
     const options = MongooseSetupService.define_options(app_name, username, password, certificate, ca);
+
+    const storage = this.setup_grid_fs_storage();
+
+    this.multi_part = multer({
+      storage
+    });
 
     this._director = new ModelDirector(this._mongoose).director;
 
     this._mongoose.set("debug", debug);
 
-    this.connect(uri, options);
+    this.connect(options);
+  }
+
+  get multi_part_uploader() {
+    return this.multi_part;
+  }
+
+  get grid_fs_bucket() {
+    return this.gfs;
   }
 
   static define_options(app_name: string, username?: string, password?: string, certificate?: string, ca?: string) {
@@ -56,9 +79,12 @@ export class MongooseSetupService implements IMongooseSetupService {
     return options;
   }
 
-  connect(uri: string, options: any) {
-    this._mongoose.connect(uri, options)
+  connect(options: any) {
+    this._mongoose.connect(this.uri, options)
       .then(() => {
+        this.gfs = new mongoose.mongo.GridFSBucket(this.mongoose.connection.db, {
+          bucketName: "uploads"
+        });
         this.listen();
         console.log("Mongoose is Ready");
       })
@@ -73,6 +99,30 @@ export class MongooseSetupService implements IMongooseSetupService {
 
   get director() {
     return this._director;
+  }
+
+  setup_grid_fs_storage() {
+    const storage = new GridFsStorage({
+      "url": this.uri,
+      "file": (req: any, file: any) => {
+        return new Promise((resolve, reject) => {
+          crypto.randomBytes(16, (err: any, buf: any) => {
+            if (err) {
+              return reject(err);
+            }
+            const filename = `${buf.toString("hex")}${file.originalname}`;
+            const fileInfo = {
+              filename,
+              "bucketName": "uploads"
+            };
+
+            return resolve(fileInfo);
+          });
+        });
+      }
+    });
+
+    return storage;
   }
 
   listen() {
