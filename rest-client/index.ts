@@ -36,7 +36,14 @@ export class RestClientService implements IRestClientService {
   }
 
   //TODO
-  public post_file(uri: string, file_content: any, headers: any) {}
+  public post_file(uri: string, file_content: any, headers: any) {
+    
+    return fetch(uri, {
+      method: 'POST',
+      headers: headers,
+      body: file_content // Here, readStream, stringContent or bufferContent would work
+    })
+  }
 
   public delete(uri: string, payload: any, headers: any): Promise<any> {
     return this.common_request(uri, payload, headers, "DELETE");

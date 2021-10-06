@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/rest-client",
-  "version": "0.1.22",
+  "version": "0.1.24",
   "description": "\"An abstraction for RESTful operations\"",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
