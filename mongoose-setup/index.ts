@@ -16,6 +16,7 @@ export class MongooseSetupService implements IMongooseSetupService {
   private multi_part: any;
   private gfs: any;
   private uri: string;
+  private options: any;
 
   constructor(ModelDirector: any, uri = "mongodb://localhost:27017/test", debug = false, username = '', password = '', certificate = '', ca = '', app_name = "Custom Application", promise = null) {
 
@@ -27,7 +28,7 @@ export class MongooseSetupService implements IMongooseSetupService {
 
     this.uri = uri;
 
-    const options = MongooseSetupService.define_options(app_name, username, password, certificate, ca);
+    this.options = MongooseSetupService.define_options(app_name, username, password, certificate, ca);
 
     const storage = this.setup_grid_fs_storage();
 
@@ -38,8 +39,6 @@ export class MongooseSetupService implements IMongooseSetupService {
     this._director = new ModelDirector(this._mongoose).director;
 
     this._mongoose.set("debug", debug);
-
-    this.connect(options);
   }
 
   get multi_part_uploader() {
@@ -79,14 +78,15 @@ export class MongooseSetupService implements IMongooseSetupService {
     return options;
   }
 
-  connect(options: any) {
-    this._mongoose.connect(this.uri, options)
+  async connect() {
+    return this._mongoose.connect(this.uri, this.options)
       .then(() => {
-        this.gfs = new mongoose.mongo.GridFSBucket(this.mongoose.connection.db, {
+        this.gfs = new this._mongoose.mongo.GridFSBucket(this._mongoose.connection.db, {
           bucketName: "uploads"
         });
         this.listen();
         console.log("Mongoose is Ready");
+        return Promise.resolve();
       })
       .catch((error: any) => {
         throw new Error(error);

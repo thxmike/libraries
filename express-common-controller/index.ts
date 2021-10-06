@@ -192,6 +192,7 @@ export class CommonController
     if (!this.is_JSON(JSON.stringify(body))) {
       return Promise.reject("This request requires a valid JSON payload");
     }
+    
     return Promise.resolve();
   }
 

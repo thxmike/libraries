@@ -1,6 +1,6 @@
 {
   "name": "@thxmike/mongoose-setup",
-  "version": "0.1.92",
+  "version": "0.1.96",
   "description": "Sets up Mongoose eventing system",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
