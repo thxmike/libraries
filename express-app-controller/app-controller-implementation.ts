@@ -1,6 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
+import { StringOperationsService } from '@thxmike/string-operations';
 
 import { IAppControllerService } from './iapp-controller-service';
 
@@ -28,7 +29,11 @@ export class AppControllerService implements IAppControllerService {
     url_encoded_options: any = {}
   ) {
     this._app = app;
-    this._cors_options.origin = allowed_domains;
+    if(StringOperationsService.is_json(allowed_domains.toString())){
+      this._cors_options.origin = JSON.parse(allowed_domains.toString());
+    } else{
+      this._cors_options.origin = allowed_domains;
+    }
     this._cors_options.methods = allowed_methods;
     this._cors_options.allowedHeaders = allowed_headers;
     this._cors_options.exposedHeaders = exposed_headers;
