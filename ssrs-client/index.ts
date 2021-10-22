@@ -36,10 +36,14 @@ export class SSRSClientService implements ISSRSClientService {
 
   public async renderReport(path: string, parameters: Array<{Name: string, Value: string}>): Promise<any> {
     
-    let fileType = 'html';
+    let fileType = 'HTML4.0';
     let reportOutput = await ssrs.reportExecution.getReport(path, fileType, parameters)
     const buff = Buffer.from(reportOutput.Result, "base64");
 
-    return buff.toString("utf8");
+    return Promise.resolve(buff.toString("utf8"));
+  }
+
+  public async getReportParameters(path: string){
+    return await ssrs.reportService.getReportParams(path);
   }
 }
