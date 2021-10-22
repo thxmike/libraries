@@ -1,0 +1,32 @@
+{
+  "name": "@thxmike/ssrs-client",
+  "version": "0.1.1",
+  "description": "\"A RESTful expression of SSRS\"",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc && npm version patch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thxmike/libraries.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "author": "Rivera",
+  "license": "ISC",
+  "dependencies": {
+    "mssql-ssrs": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.17.27"
+  }
+}
