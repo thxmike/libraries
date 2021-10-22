@@ -18,8 +18,10 @@ export class SSRSClientService implements ISSRSClientService {
       username: username,
       password: password
     }
+  }
 
-    const _ = async () => { await ssrs.start(this._serverConfig, this._serverOptions) };
+  public async init(): Promise<any> {
+    await ssrs.start(this._serverConfig, this._serverOptions);
   }
 
   public async getReportsList(): Promise<any> {

@@ -1,5 +1,7 @@
 export interface ISSRSClientService {
 
+  init(): Promise<any>;
+  
   getReportsList(): Promise<any>;
 
   getReport(path: string): Promise<any>;
